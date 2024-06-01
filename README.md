@@ -1,7 +1,7 @@
-# Blog Sphere Platform Specification
+# Blog Platform Specification
 
 ## Overview
-The Blog Platform is a web application that allows users to create, publish, and manage their own blog posts. It provides a user-friendly interface for both writers and readers, along with features for commenting, searching, and categorizing blog posts.
+The Blog Platform is a web application backend that allows users to create, publish, and manage their own blog posts. It provides a user-friendly interface for both writers and readers, along with features for commenting, searching, and categorizing blog posts.
 
 ## User Roles
 - **Admin:** Can manage users, blog posts, comments, and categories.
@@ -34,7 +34,6 @@ The Blog Platform is a web application that allows users to create, publish, and
 
 ## Technology Stack
 - **Backend:** Spring Boot for RESTful API development.
-- **Frontend:** React.js or Angular for building the user interface.
 - **Database:** MySQL or PostgreSQL for storing user data, blog posts, comments, and categories.
 - **Authentication:** JWT (JSON Web Tokens) for user authentication and authorization.
 - **API Documentation:** Swagger for documenting the RESTful APIs.
