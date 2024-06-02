@@ -1,8 +1,6 @@
 package org.blogs.blogsphere.Services;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.blogs.blogsphere.Entities.Post;
@@ -11,6 +9,7 @@ import org.blogs.blogsphere.Exceptions.ResourceNotFoundException;
 import org.blogs.blogsphere.IServices.IPostService;
 import org.blogs.blogsphere.Mapper.MapToRequest.PostMapFromRequest;
 import org.blogs.blogsphere.Mapper.MapToResponse.PostMapToResponse;
+import org.blogs.blogsphere.Payload.Filters.PostFilter;
 import org.blogs.blogsphere.Payload.Request.PostRequest;
 import org.blogs.blogsphere.Payload.Response.PostResponse;
 import org.blogs.blogsphere.Repositories.PostRepository;
@@ -32,18 +31,16 @@ public class PostService implements IPostService
     public List<PostResponse> getAllPosts() {
         return postRepository.findAll().stream()
             .map(PostMapToResponse::MapToPostResponse)
-            .collect(Collectors.toList());
-            
+            .collect(Collectors.toList());            
     }
 
     @Override
-    public List<PostResponse> getPosts(Optional<String> status, Optional<String> username, Optional<Date> createdAt,
-            Optional<String> category) {
+    public List<PostResponse> getPosts(PostFilter postFilter) {
         return postRepository.findAll().stream()
-            .filter(post -> status.map(s -> s.equals(post.getStatus().name())).orElse(true))
-            .filter(post -> username.map(u -> u.equals(post.getCreatedBy().getUsername())).orElse(true))
-            .filter(post -> createdAt.map(c -> c.equals(post.getCreatedAt())).orElse(true))
-            .filter(post -> category.map(cat -> post.getCategories().stream().anyMatch(ca -> ca.getName().equalsIgnoreCase(cat))).orElse(true))
+            .filter(post -> postFilter.getStatus().map(s -> s.equals(post.getStatus().name())).orElse(true))
+            .filter(post -> postFilter.getUsername().map(u -> u.equals(post.getCreatedBy().getUsername())).orElse(true))
+            .filter(post -> postFilter.getCreatedAt().map(c -> c.equals(post.getCreatedAt())).orElse(true))
+            .filter(post -> postFilter.getCategory().map(cat -> post.getCategories().stream().anyMatch(ca -> ca.getName().equalsIgnoreCase(cat))).orElse(true))
             .map(PostMapToResponse::MapToPostResponse)
             .collect(Collectors.toList());
     }
@@ -64,5 +61,14 @@ public class PostService implements IPostService
         return PostMapToResponse.MapToPostResponse(postRepository.save(PostMapFromRequest.mapToPost(postRequest)));
     }
 
+    public PostResponse getPostById(Long postId)
+    {
+        return PostMapToResponse.MapToPostResponse(
+            postRepository.findById(postId)
+                .orElseThrow(
+                    () -> new ResourceNotFoundException("Cannot find the post")
+                )
+            );
+    }
     
 }

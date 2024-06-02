@@ -1,7 +1,6 @@
 package org.blogs.blogsphere.Services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.blogs.blogsphere.Entities.Comment;
@@ -9,6 +8,7 @@ import org.blogs.blogsphere.Enum.EStatus;
 import org.blogs.blogsphere.Exceptions.ResourceNotFoundException;
 import org.blogs.blogsphere.IServices.ICommentService;
 import org.blogs.blogsphere.Mapper.MapToResponse.CommentMapToResponse;
+import org.blogs.blogsphere.Payload.Filters.CommentFilter;
 import org.blogs.blogsphere.Payload.Request.CommentRequest;
 import org.blogs.blogsphere.Payload.Response.CommentResponse;
 import org.blogs.blogsphere.Repositories.CommentRepository;
@@ -42,12 +42,11 @@ public class CommentService implements ICommentService
     }
 
     @Override
-    public List<CommentResponse> getComments(Optional<String> status, Optional<String> username,
-            Optional<Long> postId) {
+    public List<CommentResponse> getComments(CommentFilter commentFilter) {
         return commentRepository.findAll().stream()
-                .filter(comment -> status.map(s -> s.equals(comment.getStatus().name())).orElse(true))
-                .filter(comment -> username.map(u -> u.equals(comment.getCreatedBy().getUsername())).orElse(true))
-                .filter(comment -> postId.map(p -> p.equals(comment.getPost().getId())).orElse(true))
+                .filter(comment -> commentFilter.getStatus().map(s -> s.equals(comment.getStatus().name())).orElse(true))
+                .filter(comment -> commentFilter.getUsername().map(u -> u.equals(comment.getCreatedBy().getUsername())).orElse(true))
+                .filter(comment -> commentFilter.getPostId().map(p -> p.equals(comment.getPost().getId())).orElse(true))
                 .map(CommentMapToResponse::MapToCommentResponse)
                 .collect(Collectors.toList());
     }
