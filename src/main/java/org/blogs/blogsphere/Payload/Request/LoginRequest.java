@@ -4,9 +4,14 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
+
 @AllArgsConstructor
-public class CategoryRequest {
+@Getter
+public class LoginRequest {
+    
     @NotBlank
-    private String name;
+    private String username;
+
+    @NotBlank
+    private String password;
 }

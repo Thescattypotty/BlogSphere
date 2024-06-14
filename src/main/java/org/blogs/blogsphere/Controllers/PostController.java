@@ -30,8 +30,6 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    
-
 
     @PostMapping
     public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest postRequest)

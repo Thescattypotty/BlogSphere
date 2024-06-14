@@ -4,9 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
-public class CategoryRequest {
+@Getter
+public class TokenRefreshRequest {
+    
     @NotBlank
-    private String name;
+    private String refreshToken;
 }
