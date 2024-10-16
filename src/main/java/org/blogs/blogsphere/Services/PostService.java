@@ -14,7 +14,10 @@ import org.blogs.blogsphere.Payload.Request.PostRequest;
 import org.blogs.blogsphere.Payload.Response.PostResponse;
 import org.blogs.blogsphere.Repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class PostService implements IPostService
 {
     @Autowired

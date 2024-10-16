@@ -12,13 +12,13 @@ import org.blogs.blogsphere.Payload.Request.CategoryRequest;
 import org.blogs.blogsphere.Payload.Response.CategoryResponse;
 import org.blogs.blogsphere.Repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CategoryService implements ICategoryService
 {
     @Autowired
     private CategoryRepository categoryRepository;
-
-   
 
     @Override
     public CategoryResponse changeName(Long categoryId, CategoryRequest categoryRequest) {

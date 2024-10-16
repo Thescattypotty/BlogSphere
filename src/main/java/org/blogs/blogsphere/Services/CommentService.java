@@ -14,7 +14,9 @@ import org.blogs.blogsphere.Payload.Response.CommentResponse;
 import org.blogs.blogsphere.Repositories.CommentRepository;
 import org.blogs.blogsphere.Repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentService implements ICommentService
 {
     @Autowired
