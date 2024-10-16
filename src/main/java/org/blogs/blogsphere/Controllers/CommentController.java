@@ -35,7 +35,7 @@ public class CommentController {
     {
         return ResponseEntity.ok(commentService.getAllComments());
     }
-    @GetMapping
+    @GetMapping("/filter")
     public ResponseEntity<List<CommentResponse>> getComments(@RequestBody CommentFilter commentFilter)
     {
         return ResponseEntity.ok(commentService.getComments(commentFilter));

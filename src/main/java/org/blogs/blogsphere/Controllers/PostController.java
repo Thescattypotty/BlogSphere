@@ -42,7 +42,7 @@ public class PostController {
     {
         return ResponseEntity.ok(postService.getAllPosts());
     }
-    @GetMapping
+    @GetMapping("/filter")
     public ResponseEntity<List<PostResponse>> getPostsByFilter(@RequestBody PostFilter postFilter)
     {
         return ResponseEntity.ok(postService.getPosts(postFilter));
