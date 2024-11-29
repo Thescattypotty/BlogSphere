@@ -24,7 +24,7 @@ public class UserSecurityService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new UserNotFoundException("User Not Found"));
+            .orElseThrow(() -> new UserNotFoundException());
         
         return UserSecurity.builder()
             .id(user.getId())

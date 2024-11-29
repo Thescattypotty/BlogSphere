@@ -7,6 +7,7 @@ import org.blogsphere.blog.EntityRepository.UserRepository;
 import org.blogsphere.blog.Exception.UserNotFoundException;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,10 @@ public class AuditorAwareComponent implements AuditorAware<User>{
 
     @Override
     public Optional<User> getCurrentAuditor() {
-        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return Optional.of(
             userRepository.findByUsername(principal.getUsername())
-                .orElseThrow(() -> new UserNotFoundException("Cannot find current User"))
+                .orElseThrow(() -> new UserNotFoundException())
                 );
     }
     

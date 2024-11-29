@@ -1,6 +1,5 @@
 package org.blogsphere.blog.Payload.Response;
 
-public record ErrorResponse(
+public record UserResponse() {
     
-) {
 }
