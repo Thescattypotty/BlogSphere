@@ -9,15 +9,21 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +36,12 @@ import lombok.Setter;
 @Setter
 @Builder
 @Entity
-@Table(name = "posts")
+@Table(
+    name = "posts", 
+    indexes = {
+        @Index(name = "idx_post_created_by", columnList = "createdBy_id"),
+    }
+)
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
     
@@ -55,7 +66,12 @@ public class Post {
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean isPublished;
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "post_tags",
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private Set<Tag> tags;
 
     @OneToMany
