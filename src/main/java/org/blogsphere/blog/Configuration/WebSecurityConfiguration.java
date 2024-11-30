@@ -66,6 +66,6 @@ public class WebSecurityConfiguration {
 
     private static final String[] AUTHENTIFICATION_WHITE_LIST = {
         "/api/v1/auth/**",
-        "/api/v1/test"
+        "/api/v1/test/**"
     };
 }

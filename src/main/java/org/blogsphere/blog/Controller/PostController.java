@@ -3,6 +3,8 @@ package org.blogsphere.blog.Controller;
 
 import java.util.List;
 
+import org.blogsphere.blog.Annotation.IsOwner;
+import org.blogsphere.blog.Annotation.IsUser;
 import org.blogsphere.blog.Payload.Request.CommentRequest;
 import org.blogsphere.blog.Payload.Request.PostRequest;
 import org.blogsphere.blog.Payload.Response.PostResponse;
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
+@IsUser
 public class PostController {
     private final PostService postService;
 

@@ -2,6 +2,8 @@ package org.blogsphere.blog.Controller;
 
 import java.util.List;
 
+import org.blogsphere.blog.Annotation.IsAdmin;
+import org.blogsphere.blog.Annotation.IsUser;
 import org.blogsphere.blog.Enum.ERole;
 import org.blogsphere.blog.Payload.Request.ChangePasswordRequest;
 import org.blogsphere.blog.Payload.Request.RegisterRequest;
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@IsAdmin
 public class UserController {
     private final UserService userService;
 
@@ -69,6 +72,7 @@ public class UserController {
     }
 
     @PutMapping("/changepassword/{id}")
+    @IsUser
     public ResponseEntity<Void> changePassword(@PathVariable("id") String id , @RequestBody @Valid ChangePasswordRequest changePasswordRequest){
         userService.updatePassword(id, changePasswordRequest);
         return new ResponseEntity<>(HttpStatus.OK);

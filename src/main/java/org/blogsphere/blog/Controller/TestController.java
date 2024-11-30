@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/test")
 public class TestController {
     
-    @GetMapping
-    public ResponseEntity<String> test(){
+    @GetMapping("/granted")
+    public ResponseEntity<String> nonuser() {
+        return ResponseEntity.ok("Fuck you");
+    }
+
+    @GetMapping("/nogranted")
+    public ResponseEntity<String> user() {
         return ResponseEntity.ok("Fuck you");
     }
 }

@@ -43,5 +43,4 @@ public class UserSecurityService implements UserDetailsService{
         }
         return authorities;
     }
-    
 }

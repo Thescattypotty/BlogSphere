@@ -2,6 +2,7 @@ package org.blogsphere.blog.Controller;
 
 import java.util.List;
 
+import org.blogsphere.blog.Annotation.IsUser;
 import org.blogsphere.blog.Payload.Request.TagRequest;
 import org.blogsphere.blog.Payload.Response.TagResponse;
 import org.blogsphere.blog.Service.TagService;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/tags")
 @RequiredArgsConstructor
+@IsUser
 public class TagController {
     private final TagService tagService;
 
