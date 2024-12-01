@@ -20,11 +20,22 @@ public class AuditorAwareComponent implements AuditorAware<User>{
 
     @Override
     public Optional<User> getCurrentAuditor() {
-        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else if (principal instanceof String) {
+            username = (String) principal;
+        } else {
+            return Optional.empty();
+        }
+
         return Optional.of(
-            userRepository.findByUsername(principal.getUsername())
-                .orElseThrow(() -> new UserNotFoundException())
-                );
+            userRepository.findByUsername(username)
+            .orElseThrow(UserNotFoundException::new)
+            );
     }
     
 }
