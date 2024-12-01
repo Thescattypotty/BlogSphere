@@ -25,9 +25,17 @@ export class LoginComponent {
 	login(): void {
 		this.authService.login(this.loginRequest).subscribe({
 			next: (response) => {
+				console.log(response);
 				this.jwtResponse = response;
-				localStorage.setItem('accessToken', this.jwtResponse.accessToken.toString());
-				localStorage.setItem('refreshToken', this.jwtResponse.refreshToken.toString());
+
+				if (this.jwtResponse.accessToken && this.jwtResponse.refreshToken) {
+					localStorage.setItem('accessToken', this.jwtResponse.accessToken.valueOf());
+					localStorage.setItem('refreshToken', this.jwtResponse.refreshToken.valueOf());
+				} else {
+					console.error('accessToken or refreshToken is missing!');
+				}
+
+				this.router.navigate(['/register']);
 			},
 			error: (error) => {
 				this.errorMessage = error;

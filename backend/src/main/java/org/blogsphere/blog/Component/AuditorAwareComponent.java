@@ -20,10 +20,13 @@ public class AuditorAwareComponent implements AuditorAware<User>{
 
     @Override
     public Optional<User> getCurrentAuditor() {
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            return Optional.empty();
+        }
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String username;
-
+        
         if (principal instanceof UserDetails) {
             username = ((UserDetails) principal).getUsername();
         } else if (principal instanceof String) {
