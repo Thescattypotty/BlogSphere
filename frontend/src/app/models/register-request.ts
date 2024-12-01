@@ -6,7 +6,7 @@ export interface RegisterRequest {
     password: String;
     firstName?: String;
     lastName?: String;
-    roles: ERole[];
+    roles?: ERole[];
     profilePicture?: String;
     bio?: String;
 }

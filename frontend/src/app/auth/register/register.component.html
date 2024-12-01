@@ -1,1 +1,118 @@
-<p>register works!</p>
+<div class="register-container">
+  <h1>Register</h1>
+
+  <form (ngSubmit)="register()" #registerForm="ngForm">
+    <!-- Username -->
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        [(ngModel)]="registerRequest.username"
+        name="username"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="registerRequest.email"
+        name="email"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="registerRequest.password"
+        name="password"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <!-- First Name -->
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        [(ngModel)]="registerRequest.firstName"
+        name="firstName"
+        class="form-control"
+      />
+    </div>
+
+    <!-- First Name -->
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        id="lastName"
+        [(ngModel)]="registerRequest.lastName"
+        name="lastName"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Roles -->
+    <div class="form-group">
+      <label for="roles">Roles</label>
+      <select
+        id="roles"
+        [(ngModel)]="registerRequest.roles"
+        name="roles"
+        class="form-control"
+        multiple
+      >
+        <option *ngFor="let role of ['ROLE_USER', 'ROLE_ADMIN']" [value]="role">
+          {{ role }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Profile Picture -->
+    <div class="form-group">
+      <label for="profilePicture">Profile Picture URL</label>
+      <input
+        type="text"
+        id="profilePicture"
+        [(ngModel)]="registerRequest.profilePicture"
+        name="profilePicture"
+        class="form-control"
+      />
+    </div>
+
+    <!-- Bio -->
+    <div class="form-group">
+      <label for="bio">Bio</label>
+      <textarea
+        id="bio"
+        [(ngModel)]="registerRequest.bio"
+        name="bio"
+        class="form-control"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage.message }}</p>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+      Register
+    </button>
+  </form>
+</div>

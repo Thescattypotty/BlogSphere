@@ -6,7 +6,6 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
 	selector: 'auth-login',
@@ -24,15 +23,16 @@ export class LoginComponent {
 	constructor(private authService: AuthService, private router: Router) { }
 
 	login(): void {
-		this.authService.login(this.loginRequest).subscribe(
-			(response) => {
+		this.authService.login(this.loginRequest).subscribe({
+			next: (response) => {
 				this.jwtResponse = response;
 				localStorage.setItem('accessToken', this.jwtResponse.accessToken.toString());
 				localStorage.setItem('refreshToken', this.jwtResponse.refreshToken.toString());
 			},
-			(error) => {
+			error: (error) => {
 				this.errorMessage = error;
 			}
-		);
+		});
 	}
+
 }
