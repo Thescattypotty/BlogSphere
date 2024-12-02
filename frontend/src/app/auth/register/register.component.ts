@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RegisterRequest } from '../../models/register-request';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ErrorResponse } from '../../models/error-response';
 
 @Component({
 	selector: 'auth-register',
 	standalone: true,
-	imports: [FormsModule, NgIf, NgForOf],
+	imports: [FormsModule, RouterLink],
 	templateUrl: './register.component.html',
 	styleUrl: './register.component.css'
 })

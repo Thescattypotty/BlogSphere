@@ -1,15 +1,54 @@
-<div class="auth-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="login()">
-    <div>
-      <label for="username">Username</label>
-      <input id="username" [(ngModel)]="loginRequest.username" name="username" required />
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input id="password" type="password" [(ngModel)]="loginRequest.password" name="password" required />
-    </div>
-    <button type="submit">Login</button>
-  </form>
+<div class="d-flex align-items-center py-4">
+  <main class="form-signin w-100 m-auto">
+    <form (ngSubmit)="login()">
+      <img
+        class="mb-4"
+        src="assets/brand/bootstrap-logo.svg"
+        alt="Bootstrap Logo"
+        width="72"
+        height="57"
+      />
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-  <p *ngIf="errorMessage" class="error">{{ errorMessage.message }}</p>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="username"
+          name="username"
+          [(ngModel)]="loginRequest.username"
+          required
+        />
+        <label for="username">Username</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="*********"
+          name="password"
+          [(ngModel)]="loginRequest.password"
+        />
+        <label for="password">Password</label>
+      </div>
+
+      <div class="form-check text-start my-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value="remember-me"
+          id="flexCheckDefault"
+        />
+        <label class="form-check-label" for="flexCheckDefault">
+          Remember me
+        </label>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <p class="mt-5 mb-3 text-body-secondary">
+        Not registered? <a routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Create an account</a>
+      </p>
+    </form>
+  </main>
+</div>

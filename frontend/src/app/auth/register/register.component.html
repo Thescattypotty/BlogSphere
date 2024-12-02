@@ -1,118 +1,119 @@
-<div class="register-container">
-  <h1>Register</h1>
-
-  <form (ngSubmit)="register()" #registerForm="ngForm">
-    <!-- Username -->
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        [(ngModel)]="registerRequest.username"
-        name="username"
-        class="form-control"
-        required
+<div class="d-flex align-items-center py-4">
+  <main class="form-signin w-100 m-auto">
+    <form (ngSubmit)="register()">
+      <img
+        class="mb-4"
+        src="assets/brand/bootstrap-logo.svg"
+        alt="Bootstrap Logo"
+        width="72"
+        height="57"
       />
-    </div>
+      <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
-    <!-- Email -->
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="registerRequest.email"
-        name="email"
-        class="form-control"
-        required
-      />
-    </div>
+      <div class="form-floating mt-4">
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="username"
+          name="username"
+          [(ngModel)]="registerRequest.username"
+          required
+        />
+        <label for="username">Username</label>
+      </div>
 
-    <!-- Password -->
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        [(ngModel)]="registerRequest.password"
-        name="password"
-        class="form-control"
-        required
-      />
-    </div>
+      <div class="form-floating">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="email@exemple.com"
+          name="email"
+          [(ngModel)]="registerRequest.email"
+          required
+        />
+        <label for="email">Email</label>
+      </div>
 
-    <!-- First Name -->
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input
-        type="text"
-        id="firstName"
-        [(ngModel)]="registerRequest.firstName"
-        name="firstName"
-        class="form-control"
-      />
-    </div>
 
-    <!-- First Name -->
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input
-        type="text"
-        id="lastName"
-        [(ngModel)]="registerRequest.lastName"
-        name="lastName"
-        class="form-control"
-      />
-    </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="*********"
+          name="password"
+          [(ngModel)]="registerRequest.password"
+          required
+        />
+        <label for="password">Password</label>
+      </div>
 
-    <!-- Roles -->
-    <div class="form-group">
-      <label for="roles">Roles</label>
-      <select
-        id="roles"
-        [(ngModel)]="registerRequest.roles"
-        name="roles"
-        class="form-control"
-        multiple
-      >
-        <option *ngFor="let role of ['ROLE_USER', 'ROLE_ADMIN']" [value]="role">
-          {{ role }}
-        </option>
-      </select>
-    </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="firstName"
+          name="firstName"
+          [(ngModel)]="registerRequest.firstName"
+        />
+        <label for="firstName">First Name</label>
+      </div>
 
-    <!-- Profile Picture -->
-    <div class="form-group">
-      <label for="profilePicture">Profile Picture URL</label>
-      <input
-        type="text"
-        id="profilePicture"
-        [(ngModel)]="registerRequest.profilePicture"
-        name="profilePicture"
-        class="form-control"
-      />
-    </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          placeholder="lastName"
+          name="lastName"
+          [(ngModel)]="registerRequest.lastName"
+        />
+        <label for="lastName">Last Name</label>
+      </div>
 
-    <!-- Bio -->
-    <div class="form-group">
-      <label for="bio">Bio</label>
-      <textarea
-        id="bio"
-        [(ngModel)]="registerRequest.bio"
-        name="bio"
-        class="form-control"
-        rows="4"
-      ></textarea>
-    </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="profilePicture"
+          placeholder="url"
+          name="profilePicture"
+          [(ngModel)]="registerRequest.profilePicture"
+        />
+        <label for="profilePicture">Profile Picture URL</label>
+      </div>
 
-    <!-- Error Message -->
-    <div *ngIf="errorMessage" class="error-message">
-      <p>{{ errorMessage.message }}</p>
-    </div>
+      <div class="form-floating">
+        <textarea
+          class="form-control"
+          id="bio"
+          placeholder="exemple ..."
+          name="bio"
+          rows="4"
+          [(ngModel)]="registerRequest.bio"
+        ></textarea>
+        <label for="profilePicture">Bio</label>
+      </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
-      Register
-    </button>
-  </form>
+
+      <div class="form-check text-start my-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value="remember-me"
+          id="flexCheckDefault"
+        />
+        <label class="form-check-label" for="flexCheckDefault">
+          Remember me
+        </label>
+      </div>
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <p class="mt-5 mb-3 text-body-secondary">
+        Have an accout? <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login to your account</a>
+      </p>
+    </form>
+  </main>
 </div>

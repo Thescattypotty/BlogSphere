@@ -1,16 +1,15 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginRequest } from '../../models/login-request';
 import { JwtResponse } from '../../models/jwt-response';
 import { ErrorResponse } from '../../models/error-response';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
 	selector: 'auth-login',
 	standalone: true,
-	imports: [FormsModule, NgIf],
+	imports: [FormsModule, RouterLink],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',
 })
@@ -27,15 +26,14 @@ export class LoginComponent {
 			next: (response) => {
 				console.log(response);
 				this.jwtResponse = response;
-
+				
 				if (this.jwtResponse.accessToken && this.jwtResponse.refreshToken) {
-					localStorage.setItem('accessToken', this.jwtResponse.accessToken.valueOf());
-					localStorage.setItem('refreshToken', this.jwtResponse.refreshToken.valueOf());
+					this.authService.setToken(this.jwtResponse.accessToken.valueOf(), this.jwtResponse.refreshToken.valueOf());
 				} else {
 					console.error('accessToken or refreshToken is missing!');
 				}
-
-				this.router.navigate(['/register']);
+				
+				this.router.navigate(['']);
 			},
 			error: (error) => {
 				this.errorMessage = error;
