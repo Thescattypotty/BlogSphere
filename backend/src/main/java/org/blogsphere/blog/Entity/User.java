@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.blogsphere.blog.Enum.ERole;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -63,7 +64,7 @@ public class User {
 
     private String lastName;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
         name = "user_roles",
         joinColumns = @JoinColumn(name = "user_id")

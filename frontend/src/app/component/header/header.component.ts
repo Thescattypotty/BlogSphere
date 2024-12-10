@@ -5,6 +5,7 @@ import { TagResponse } from '../../models/tag-response';
 import { ErrorResponse } from '../../models/error-response';
 import { NgFor, NgIf } from '@angular/common';
 import { catchError, of } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,14 @@ export class HeaderComponent implements OnInit{
 	errorMessage: ErrorResponse | null = null;
 	isLoading: boolean = true;
 
-	constructor(private tagService: TagService){ }
+	constructor(private tagService: TagService, private authService: AuthService){ }
+
+	get isAuthenticated(): boolean{
+		return this.authService.isLoggedIn();
+	}
+	logout(): void{
+		this.authService.logout();
+	}
 
 	ngOnInit(): void {
 		this.tagService.getAllTags().pipe(

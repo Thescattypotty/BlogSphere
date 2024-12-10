@@ -1,3 +1,16 @@
-<app-header />
-<router-outlet />
-<app-footer />
+<ng-container *ngIf="isLoginRoute; else nonLoginRoute">
+  <!-- Layout for login and register routes -->
+  <router-outlet />
+</ng-container>
+
+<ng-template #nonLoginRoute>
+  <ng-container *ngIf="isDashboardRoute; else defaultLayout">
+    <app-dashboard></app-dashboard>
+  </ng-container>
+
+  <ng-template #defaultLayout>
+    <app-header></app-header>
+    <router-outlet />
+    <app-footer></app-footer>
+  </ng-template>
+</ng-template>

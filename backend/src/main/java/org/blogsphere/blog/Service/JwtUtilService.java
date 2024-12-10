@@ -1,6 +1,6 @@
 package org.blogsphere.blog.Service;
 
-import java.security.Key;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,12 +26,12 @@ public class JwtUtilService {
     @Value("${backend.jwt.expiration}")
     private Long expiration;
 
-    private Key key;
+    private SecretKey key;
 
     @PostConstruct
     public void initKey()
     {
-        key = Keys.hmacShaKeyFor(secret.getBytes());
+        key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(String username , Set<ERole> roles, String tokenType){
@@ -58,27 +58,10 @@ public class JwtUtilService {
     public <T> T extractClaim(String token , Function<Claims, T> claimsResolver){
         return claimsResolver.apply(
             Jwts.parser()
-            .decryptWith(new SecretKey() {
-
-                @Override
-                public String getAlgorithm() {
-                    return key.getAlgorithm();
-                }
-
-                @Override
-                public byte[] getEncoded() {
-                    return key.getEncoded();
-                }
-
-                @Override
-                public String getFormat() {
-                    return key.getFormat();
-                }
-                
-            })
-            .build()
-            .parseSignedClaims(token)
-            .getPayload()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
         );
     }
     public boolean isTokenValid(String token , String username){

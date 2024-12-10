@@ -1,0 +1,27 @@
+<div
+  class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+>
+  <div class="col p-4 d-flex flex-column position-static">
+    <strong class="d-inline-block mb-2 text-success-emphasis">
+        {{listTags.join(', ')}}
+    </strong>
+    <h3 class="mb-0">{{ title }}</h3>
+    <div class="mb-1 text-body-secondary">Nov 11</div>
+    <p class="mb-auto">
+      {{ description }}
+    </p>
+    <a [href]="link" class="icon-link gap-1 icon-link-hover stretched-link">
+      {{ textLink }}
+      <svg class="bi"><use xlink:href="#chevron-right" /></svg>
+    </a>
+  </div>
+  <div class="col-auto d-none d-lg-block">
+    <img
+      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.7uhNISUtLvs-avTaHIY1HAHaEK%26pid%3DApi&f=1&ipt=35ac6e9493cf07ec016e98a63d702dfe13fbd18ebeb1f43c7a86489389d6247a&ipo=images"
+      alt="Thumbnail"
+      width="200"
+      height="250"
+      class="bd-placeholder-img"
+    />
+  </div>
+</div>
