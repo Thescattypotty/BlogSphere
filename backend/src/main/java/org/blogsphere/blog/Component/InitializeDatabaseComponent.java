@@ -11,7 +11,6 @@ import org.blogsphere.blog.EntityRepository.TagRepository;
 import org.blogsphere.blog.EntityRepository.UserRepository;
 import org.blogsphere.blog.Enum.ERole;
 import org.blogsphere.blog.Payload.Request.RegisterRequest;
-import org.blogsphere.blog.Service.PostService;
 import org.blogsphere.blog.Service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,7 @@ public class InitializeDatabaseComponent implements CommandLineRunner{
     private final UserService userService;
     private final TagRepository tagRepository;
     private final UserRepository userRepository;
-    private final PostService postService;
+    //private final PostService postService;
 
     @Override
     public void run(String... args) throws Exception {

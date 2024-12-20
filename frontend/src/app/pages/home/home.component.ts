@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CardPostComponent } from "../component/card-post/card-post.component";
-import { PostService } from '../services/post.service';
-import { PostResponse } from '../models/post-response';
+import { CardPostComponent } from "../../component/card-post/card-post.component";
+import { PostService } from '../../services/post.service';
+import { PostResponse } from '../../models/post-response';
 
 @Component({
 	selector: 'app-home',

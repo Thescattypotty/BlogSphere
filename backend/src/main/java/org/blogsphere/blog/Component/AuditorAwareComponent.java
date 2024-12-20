@@ -5,40 +5,48 @@ import java.util.Optional;
 import org.blogsphere.blog.Entity.User;
 import org.blogsphere.blog.EntityRepository.UserRepository;
 import org.blogsphere.blog.Exception.UserNotFoundException;
+import org.blogsphere.blog.Service.UserSecurity;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class AuditorAwareComponent implements AuditorAware<User>{
+public class AuditorAwareComponent implements AuditorAware<User> {
 
     private final UserRepository userRepository;
+    private static final ThreadLocal<Boolean> AUDITOR_CALL_IN_PROGRESS = new ThreadLocal<>();
 
     @Override
+    @Transactional
     public Optional<User> getCurrentAuditor() {
-        if (SecurityContextHolder.getContext().getAuthentication() == null) {
-            return Optional.empty();
-        }
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        String username;
-        
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else if (principal instanceof String) {
-            username = (String) principal;
-        } else {
+        if (Boolean.TRUE.equals(AUDITOR_CALL_IN_PROGRESS.get())) {
             return Optional.empty();
         }
 
-        return Optional.of(
-            userRepository.findByUsername(username)
-            .orElseThrow(UserNotFoundException::new)
-            );
+        try {
+            AUDITOR_CALL_IN_PROGRESS.set(true);
+            return Optional.ofNullable(SecurityContextHolder.getContext())
+                    .map(SecurityContext::getAuthentication)
+                    .filter(Authentication::isAuthenticated)
+                    .map(Authentication::getPrincipal)
+                    .map(p -> {
+                        if (p instanceof String) {
+                            return userRepository.findByUsername((String) p)
+                                    .orElseThrow(UserNotFoundException::new);
+                        } else if (p instanceof UserSecurity) {
+                            return userRepository.findByUsername(((UserSecurity) p).getUsername())
+                                    .orElseThrow(UserNotFoundException::new);
+                        }
+                        return null;
+                    });
+        } finally {
+            AUDITOR_CALL_IN_PROGRESS.remove();
+        }
     }
-    
 }

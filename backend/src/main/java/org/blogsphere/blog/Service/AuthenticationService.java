@@ -59,8 +59,7 @@ public class AuthenticationService implements IAuthenticationService{
 
     @Override
     public void logout() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'logout'");
+        SecurityContextHolder.clearContext();
     }
     
 }

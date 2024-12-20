@@ -40,7 +40,6 @@ public class WebSecurityConfiguration {
                 request -> request
                     .requestMatchers(AUTHENTIFICATION_WHITE_LIST).permitAll()
                     .requestMatchers("/api/v1").permitAll()
-                    .anyRequest().authenticated()
             )
             .sessionManagement(manager -> 
                 manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

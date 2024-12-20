@@ -50,4 +50,5 @@ public class Tag {
     @ManyToOne(optional = false)
     @CreatedBy
     private User createdBy;
+
 }

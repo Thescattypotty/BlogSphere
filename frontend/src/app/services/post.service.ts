@@ -17,7 +17,7 @@ export class PostService {
 		return this.http.post<void>(this.API_URL, postRequest);
 	}
 
-	getPost(id: string): Observable<PostResponse> {
+    getPost(id: String): Observable<PostResponse> {
 		return this.http.get<PostResponse>(`${this.API_URL}/${id}`);
 	}
 
@@ -25,23 +25,23 @@ export class PostService {
 		return this.http.get<PostResponse[]>(this.API_URL);
 	}
 
-	updatePost(id: string, postRequest: PostRequest): Observable<void> {
+	updatePost(id: String, postRequest: PostRequest): Observable<void> {
 		return this.http.put<void>(`${this.API_URL}/${id}`, postRequest);
 	}
 
-	deletePost(id: string): Observable<void> {
+    deletePost(id: String): Observable<void> {
 		return this.http.delete<void>(`${this.API_URL}/${id}`);
 	}
 
-	createComment(postId: string, commentRequest: CommentRequest): Observable<void> {
+    createComment(postId: String, commentRequest: CommentRequest): Observable<void> {
 		return this.http.post<void>(`${this.API_URL}/${postId}/comment/`, commentRequest);
 	}
 
-	addTagToPost(postId: string, tagId: string): Observable<void> {
+    addTagToPost(postId: String, tagId: String): Observable<void> {
 		return this.http.put<void>(`${this.API_URL}/${postId}/${tagId}`, {});
 	}
 
-	removeTagFromPost(postId: string, tagId: string): Observable<void> {
+    removeTagFromPost(postId: String, tagId: String): Observable<void> {
 		return this.http.delete<void>(`${this.API_URL}/${postId}/${tagId}`);
 	}
 }

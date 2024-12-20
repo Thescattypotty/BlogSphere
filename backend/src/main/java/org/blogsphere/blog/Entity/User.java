@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.blogsphere.blog.Enum.ERole;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

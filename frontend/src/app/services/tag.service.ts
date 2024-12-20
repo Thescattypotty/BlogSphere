@@ -16,7 +16,7 @@ export class TagService {
 		return this.http.post<void>(this.API_URL, tagRequest);
 	}
 
-	getTag(id: string): Observable<TagResponse> {
+	getTag(id: String): Observable<TagResponse> {
 		return this.http.get<TagResponse>(`${this.API_URL}/${id}`);
 	}
 
@@ -24,11 +24,11 @@ export class TagService {
 		return this.http.get<TagResponse[]>(this.API_URL);
 	}
 
-	updateTag(id: string, tagRequest: TagRequest): Observable<void> {
+    updateTag(id: String, tagRequest: TagRequest): Observable<void> {
 		return this.http.put<void>(`${this.API_URL}/${id}`, tagRequest);
 	}
 
-	deleteTag(id: string): Observable<void> {
+    deleteTag(id: String): Observable<void> {
 		return this.http.delete<void>(`${this.API_URL}/${id}`);
 	}
 }

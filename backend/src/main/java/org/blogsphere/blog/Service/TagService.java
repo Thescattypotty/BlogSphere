@@ -13,6 +13,7 @@ import org.blogsphere.blog.Payload.Request.TagRequest;
 import org.blogsphere.blog.Payload.Response.TagResponse;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -23,11 +24,13 @@ public class TagService implements ITagService{
     private final TagMapper tagMapper;
 
     @Override
+    @Transactional
     public void createTag(TagRequest tagRequest) {
         tagRepository.save(tagMapper.toTag(tagRequest));
     }
 
     @Override
+    @Transactional
     public void updateTag(String id, TagRequest tagRequest) {
         Tag tag = tagRepository.findById(UUID.fromString(id))
             .orElseThrow(() -> new TagNotFoundException());
@@ -38,6 +41,7 @@ public class TagService implements ITagService{
     }
 
     @Override
+    @Transactional
     public void deleteTag(String id) {
         if(tagRepository.existsById(UUID.fromString(id)))
             tagRepository.deleteById(UUID.fromString(id));
