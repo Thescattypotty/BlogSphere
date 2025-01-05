@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TagService } from '../../services/tag.service';
 import { TagResponse } from '../../models/tag-response';
 import { ErrorResponse } from '../../models/error-response';
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit{
 	errorMessage: ErrorResponse | null = null;
 	isLoading: boolean = true;
 
-	constructor(private tagService: TagService, private authService: AuthService){ }
+	constructor(private tagService: TagService, private authService: AuthService, private router: Router){ }
 
 	get isAuthenticated(): boolean{
 		return this.authService.isLoggedIn();
@@ -27,6 +27,9 @@ export class HeaderComponent implements OnInit{
 	logout(): void{
 		this.authService.logout();
 	}
+    navigateToTag(id: String){
+        this.router.navigate(['tags', id]);
+    }
 
 	ngOnInit(): void {
 		this.tagService.getAllTags().pipe(

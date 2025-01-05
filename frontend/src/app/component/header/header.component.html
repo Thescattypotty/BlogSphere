@@ -215,13 +215,14 @@
       class="nav nav-underline justify-content-between"
     >
       <ng-container *ngIf="tags.length > 0; else noTags">
-        <a
+        <button
           *ngFor="let tag of tags"
           class="nav-item nav-link link-body-emphasis"
-          [routerLink]="'/tags/' + tag.id"
+          type="menu"
+          (click)="navigateToTag(tag.id)"
         >
           {{ tag.name }}
-        </a>
+        </button>
       </ng-container>
 
       <ng-template #noTags>

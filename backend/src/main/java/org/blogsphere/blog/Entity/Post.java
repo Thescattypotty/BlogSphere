@@ -24,6 +24,7 @@ import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,8 +53,13 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
+
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String coverImage;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -66,7 +72,7 @@ public class Post {
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     private boolean isPublished;
 
-    @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "post_tags",
         joinColumns = @JoinColumn(name = "post_id"),
@@ -74,7 +80,8 @@ public class Post {
     )
     private Set<Tag> tags;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_id", nullable = true)
     private Set<Comment> comments;
 
     @ManyToOne(optional = false)

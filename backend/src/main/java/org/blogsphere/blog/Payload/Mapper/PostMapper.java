@@ -1,5 +1,7 @@
 package org.blogsphere.blog.Payload.Mapper;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import org.blogsphere.blog.Entity.Post;
@@ -13,8 +15,11 @@ public class PostMapper {
     public Post toPost(PostRequest postRequest){
         return Post.builder()
             .title(postRequest.title())
-            .content(postRequest.title())
+            .content(postRequest.content())
+            .coverImage(postRequest.coverImage())
             .isPublished(postRequest.isPublished())
+            .publishedAt(postRequest.isPublished() == true ? LocalDateTime.now(): null) 
+            .comments(new HashSet<>())
             .build();
     }
     public PostResponse toPostResponse(Post post){
@@ -22,6 +27,7 @@ public class PostMapper {
             post.getId().toString(),
             post.getTitle(),
             post.getContent(),
+            post.getCoverImage(),
             post.getCreatedAt(),
             post.getUpdatedAt(),
             post.getPublishedAt(),

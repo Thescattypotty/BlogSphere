@@ -38,7 +38,8 @@ public class WebSecurityConfiguration {
             )
             .authorizeHttpRequests(
                 request -> request
-                    .requestMatchers(AUTHENTIFICATION_WHITE_LIST).permitAll()
+                    .requestMatchers(AUTHENTIFICATION_WHITE_LIST)
+                        .permitAll()
                     .requestMatchers("/api/v1").permitAll()
             )
             .sessionManagement(manager -> 

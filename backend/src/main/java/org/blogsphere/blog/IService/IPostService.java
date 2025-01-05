@@ -10,11 +10,10 @@ public interface IPostService {
     void createPost(PostRequest postRequest);
     void updatePost(String id , PostRequest postRequest);
     PostResponse getPostById(String id);
+    List<PostResponse> getPostsByTag(String tagId);
     List<PostResponse> getAllPosts();
     void deletePost(String id);
-
     void writeComment(String id , CommentRequest commentRequest);
-
     void addTag(String id , String tagId);
     void deleteTag(String id , String tagId);
 

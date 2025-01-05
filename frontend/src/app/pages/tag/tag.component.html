@@ -1,1 +1,24 @@
-<p>tag works!</p>
+<main class="container">
+    <div class="text-center my-4">
+        <h1>Posts with tag: {{tag?.name}}</h1>
+        <p class="card-body">
+            {{tag?.description}}
+        </p>
+        <p>Total posts: {{posts.length}}</p>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6" *ngFor="let post of posts">
+            <app-card-post
+                [listTags]="post.tagsId"
+                title="post.title"
+                description="post.content"
+                link="{{post.id}}"
+                textLink="Continue Reading"
+                [coverImage]="post.coverImage"
+            >
+
+            </app-card-post>
+        </div>
+    </div>
+
+</main>

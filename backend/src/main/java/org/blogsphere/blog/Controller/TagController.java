@@ -23,7 +23,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/tags")
 @RequiredArgsConstructor
-@IsUser
 public class TagController {
     private final TagService tagService;
 

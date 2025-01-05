@@ -10,6 +10,8 @@ public record PostResponse(
 
     String content,
 
+    String coverImage,
+
     LocalDateTime createdAt,
 
     LocalDateTime updatedAt,

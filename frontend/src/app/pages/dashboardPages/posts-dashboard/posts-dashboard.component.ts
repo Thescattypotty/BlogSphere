@@ -56,8 +56,10 @@ export class PostsDashboardComponent implements OnInit {
                         post: {
                             'title': this.postGetted?.title,
                             'content': this.postGetted?.content,
+                            'coverImage': this.postGetted?.coverImage,
                             'isPublished': this.postGetted?.isPublished,
-                            'tagsId': this.postGetted?.tagsId
+                            'tagsId': this.postGetted?.tagsId,
+                            'commentsId': this.postGetted?.commentsId,
                         }
                     }
                 });

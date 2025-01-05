@@ -6,9 +6,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { authGuard } from './guards/auth.guard';
 import { TagComponent } from './pages/tag/tag.component';
 import { TagsDashboardComponent } from './pages/dashboardPages/tags-dashboard/tags-dashboard.component';
-import { SingleTagDashboardComponent } from './pages/dashboardPages/single-tag-dashboard/single-tag-dashboard.component';
 import { PostsDashboardComponent } from './pages/dashboardPages/posts-dashboard/posts-dashboard.component';
-import { SinglePostDashboardComponent } from './pages/dashboardPages/single-post-dashboard/single-post-dashboard.component';
+import { PostComponent } from './pages/post/post.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -16,6 +15,9 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {
         path: 'tags/:id', component: TagComponent
+    },
+    {
+        path: ':id', component: PostComponent 
     },
     {
         path: 'dashboard',
@@ -26,19 +28,9 @@ export const routes: Routes = [
             },
             {
                 path: 'tags', component: TagsDashboardComponent,
-                children:[
-                    {
-                        path: ':id', component: SingleTagDashboardComponent
-                    }
-                ]
             },
             {
                 path: 'posts', component: PostsDashboardComponent,
-                children: [
-                    {
-                        path: ':id', component: SinglePostDashboardComponent
-                    }
-                ]
             },
             {
                 path: 'users', component: DashboardComponent,

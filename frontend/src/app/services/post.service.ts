@@ -24,6 +24,9 @@ export class PostService {
 	getAllPosts(): Observable<PostResponse[]> {
 		return this.http.get<PostResponse[]>(this.API_URL);
 	}
+    getPostsByTag(tagId: String): Observable<PostResponse[]> {
+        return this.http.get<PostResponse[]>(`${this.API_URL}/tag/${tagId}`);
+    }
 
 	updatePost(id: String, postRequest: PostRequest): Observable<void> {
 		return this.http.put<void>(`${this.API_URL}/${id}`, postRequest);

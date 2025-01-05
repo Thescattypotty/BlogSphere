@@ -7,6 +7,8 @@ public record PostRequest(
 
     String content,
 
+    String coverImage,
+
     boolean isPublished,
 
     Set<String> tagsId

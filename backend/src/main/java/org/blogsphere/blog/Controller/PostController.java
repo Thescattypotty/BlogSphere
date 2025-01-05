@@ -26,7 +26,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
-@IsUser
 public class PostController {
     private final PostService postService;
 
@@ -50,6 +49,11 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<PostResponse>> getAllPosts(){
         return ResponseEntity.ok(postService.getAllPosts());
+    }
+
+    @GetMapping("/tag/{tagId}")
+    public ResponseEntity<List<PostResponse>> getPostsByTag(@PathVariable("tagId") String tagId){
+        return ResponseEntity.ok(postService.getPostsByTag(tagId));
     }
 
     @DeleteMapping("/{id}")

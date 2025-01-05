@@ -35,7 +35,11 @@ public class PostService implements IPostService{
     @Override
     @Transactional
     public void createPost(PostRequest postRequest) {
-        postRepository.save(postMapper.toPost(postRequest));
+        Post post = postMapper.toPost(postRequest);
+        post.setTags(new HashSet<>(tagRepository.findAllById(
+            postRequest.tagsId().stream().map(UUID::fromString).collect(Collectors.toSet())
+        )));
+        postRepository.save(post);
     }
     
     @Override
@@ -43,6 +47,7 @@ public class PostService implements IPostService{
     public void updatePost(String id, PostRequest postRequest) {
         Post post = postRepository.findById(UUID.fromString(id))
             .orElseThrow(() -> new PostNotFoundException());
+        
         post.setTitle(postRequest.title());
         post.setContent(postRequest.content());
         post.setPublished(postRequest.isPublished());
@@ -51,12 +56,18 @@ public class PostService implements IPostService{
             .map(UUID::fromString)
             .collect(Collectors.toSet());
 
-        Set<Tag> tags = new HashSet<>(tagRepository.findAllById(tagIds));
+        Set<Tag> tags = tagRepository.findAllById(tagIds)
+            .stream()
+            .collect(Collectors.toSet());
         
         if(tags.size() != tagIds.size()){
             throw new TagNotFoundException();
         }
+
         post.setTags(tags);
+        post.setComments(
+            new HashSet<>(post.getComments().stream().collect(Collectors.toSet()))
+        );
         postRepository.save(post);
     }
     
@@ -70,6 +81,14 @@ public class PostService implements IPostService{
     @Override
     public List<PostResponse> getAllPosts() {
         return postRepository.findAll()
+            .stream()
+            .map(postMapper::toPostResponse)
+            .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<PostResponse> getPostsByTag(String tagId) {
+        return postRepository.findByTagsId(UUID.fromString(tagId))
             .stream()
             .map(postMapper::toPostResponse)
             .collect(Collectors.toList());
@@ -119,5 +138,6 @@ public class PostService implements IPostService{
         post.getTags().remove(tag);
 
         postRepository.save(post);
-    }   
+    }
+ 
 }

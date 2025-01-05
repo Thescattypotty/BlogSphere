@@ -28,7 +28,6 @@ public class AuditorAwareComponent implements AuditorAware<User> {
         if (Boolean.TRUE.equals(AUDITOR_CALL_IN_PROGRESS.get())) {
             return Optional.empty();
         }
-
         try {
             AUDITOR_CALL_IN_PROGRESS.set(true);
             return Optional.ofNullable(SecurityContextHolder.getContext())

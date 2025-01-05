@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { PostRequest } from '../../../models/post-request';
+import { TagResponse } from '../../../models/tag-response';
+import { TagService } from '../../../services/tag.service';
+import { NgFor } from '@angular/common';
 
 @Component({
     selector: 'app-post-form',
     standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule, NgFor],
     templateUrl: './post-form.component.html',
     styleUrl: './post-form.component.css'
 })
@@ -14,11 +17,15 @@ export class PostFormComponent implements OnInit {
 
     post: Partial<PostRequest> | null = null;
     create: boolean = true;
-    
+    tags: TagResponse[] = [];
+
     onSubmit(): void {
         this.close();
     }
-    constructor(public modalRef: MdbModalRef<PostFormComponent>) {
+    constructor(
+        public modalRef: MdbModalRef<PostFormComponent>,
+        private tagService: TagService
+    ) {
 
     }
     close(): void {
@@ -31,6 +38,18 @@ export class PostFormComponent implements OnInit {
         return !post || !post.title || !post.content || !post.isPublished || !post.tagsId;
     }
 
+    getTags(): void{
+        this.tagService.getAllTags().subscribe({
+            next: (response) => {
+                this.tags = response;
+            },
+            error: (error) => {
+                console.error('Error Getting Tags : ', error);
+                this.modalRef.close();
+            }
+        });
+    }
+
     ngOnInit(): void {
         if (this.create) {
             this.post = {
@@ -40,5 +59,6 @@ export class PostFormComponent implements OnInit {
                 tagsId: []
             }
         }
+        this.getTags();
     }
 }

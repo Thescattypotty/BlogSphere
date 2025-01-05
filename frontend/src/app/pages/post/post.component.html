@@ -1,0 +1,29 @@
+<main class="container">
+    <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        From the Firehose
+      </h3>
+
+      <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">{{post?.title}}</h2>
+        <p class="blog-post-meta">{{post?.createdAt}} <a href="#">{{post?.createdById}}</a></p>
+
+        {{post?.content}}
+      </article>
+
+
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary rounded-pill" routerLink="/">Previous</a>
+        <a class="btn btn-outline-secondary rounded-pill" routerLink="/">Next</a>
+      </nav>
+
+    </div>
+    
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+            <app-post-sidebar></app-post-sidebar>
+      </div>
+    </div>
+  </div>
+</main>

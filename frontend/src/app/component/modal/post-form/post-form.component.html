@@ -32,6 +32,17 @@
             </textarea>
         </div>
         <div class="form-group">
+            <label for="coverImage">Cover Image</label>
+            <input 
+                type="text" 
+                class="form-control"
+                id="coverImage" 
+                name="coverImage"
+                [(ngModel)]="post!.coverImage" 
+                required 
+                />
+        </div>
+        <div class="form-group">
             <label for="name">IsPublished</label>
             <input 
                 type="text" 
@@ -43,15 +54,19 @@
                 />
         </div>
         <div class="form-group">
-            <label for="name">tagsId</label>
-            <input 
-                type="text" 
+            <label for="tagsId"> Tags</label>
+            <select 
                 class="form-control"
-                id="tagsId" 
+                id="tagsId"
                 name="tagsId"
-                [(ngModel)]="post!.tagsId" 
-                required 
-                />
+                [(ngModel)]="post!.tagsId"
+                required
+                multiple
+                >
+                <option *ngFor="let tag of tags" [value]="tag.id">
+                    {{tag.name}}
+                </option>
+            </select>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
