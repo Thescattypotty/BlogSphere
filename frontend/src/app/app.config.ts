@@ -5,7 +5,6 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { customJwtInterceptor } from './interceptor/custom-jwt.interceptor';
-import { MdbModalConfig, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -15,6 +14,7 @@ export const appConfig: ApplicationConfig = {
 		provideHttpClient(
 			withInterceptors([customJwtInterceptor]),
 			withFetch()
-		)
-	]
+		),
+	],
+    
 };

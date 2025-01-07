@@ -9,7 +9,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [RouterOutlet, HeaderComponent, FooterComponent, NgIf, DashboardComponent],
+    imports: [RouterOutlet ,HeaderComponent, FooterComponent, NgIf, DashboardComponent],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
 })

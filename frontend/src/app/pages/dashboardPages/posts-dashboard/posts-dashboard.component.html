@@ -10,7 +10,6 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Title</th>
-        <th scope="col">Content</th>
         <th scope="col">createdAt</th>
         <th scope="col">updatedAt</th>
         <th scope="col">isPublished</th>
@@ -22,7 +21,6 @@
       <tr *ngFor="let post of posts">
         <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
-        <td>{{ post.content }}</td>
         <td>{{ post.createdAt }}</td>
         <td>{{ post.updatedAt }}</td>
         <td>{{ post.isPublished }}</td>

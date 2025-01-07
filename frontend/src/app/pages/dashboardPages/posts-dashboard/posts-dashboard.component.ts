@@ -29,7 +29,9 @@ export class PostsDashboardComponent implements OnInit {
     }
 
     addPost() {
-        this.modalRef = this.modalService.open(PostFormComponent);
+        this.modalRef = this.modalService.open(PostFormComponent,{
+            modalClass: 'modal-lg'
+        });
         this.modalRef.onClose.subscribe((newPost: PostRequest) => {
             if(newPost === undefined){
                 return;
@@ -51,6 +53,7 @@ export class PostsDashboardComponent implements OnInit {
             next: (response) => {
                 this.postGetted = response;
                 this.modalRef = this.modalService.open(PostFormComponent, {
+                    modalClass: 'modal-lg',
                     data: {
                         create: false,
                         post: {

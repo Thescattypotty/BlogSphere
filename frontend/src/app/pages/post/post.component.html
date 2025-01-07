@@ -9,7 +9,9 @@
         <h2 class="display-5 link-body-emphasis mb-1">{{post?.title}}</h2>
         <p class="blog-post-meta">{{post?.createdAt}} <a href="#">{{post?.createdById}}</a></p>
 
-        {{post?.content}}
+        <div *ngIf="safeHtml">
+            <div [innerHTML]="safeHtml"></div>
+        </div>
       </article>
 
 

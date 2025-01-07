@@ -1,0 +1,18 @@
+<div class="editor-toolbar">
+    <button type="button" class="btn btn-sm btn-outline-light" (click)="format('bold', $event)"><b>B</b></button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="format('italic', $event)"><i>I</i></button>
+    <button type="button" class="btn btn-sm btn-outline-primary" (click)="format('underline', $event)"><u>U</u></button>
+    <button type="button" class="btn btn-sm btn-outline-info" (click)="format('formatBlock', $event, 'H1')">H1</button>
+    <button type="button" class="btn btn-sm btn-outline-info" (click)="format('formatBlock', $event, 'H2')">H2</button>
+    <button type="button" class="btn btn-sm btn-outline-info" (click)="format('formatBlock', $event, 'H3')">H3</button>
+    <button type="button" class="btn btn-sm btn-outline-info" (click)="format('formatBlock', $event, 'H4')">H4</button>
+    <button type="button" class="btn btn-sm btn-outline-info" (click)="format('formatBlock', $event, 'H5')">H5</button>
+    <button type="button" class="btn btn-sm btn-outline-info" (click)="format('formatBlock', $event, 'H6')">H6</button>
+    <button type="button" class="btn btn-sm btn-outline-warning" (click)="openPromptForImage($event)">Insérer image</button>
+    <button type="button" class="btn btn-sm btn-outline-warning" (click)="format('insertUnorderedList', $event)">Liste à puces</button>
+    <button type="button" class="btn btn-sm btn-outline-warning" (click)="format('insertOrderedList', $event)">Liste numérotée</button>
+    <button type="button" class="btn btn-sm btn-outline-warning" (click)="openPromptForLink($event)">Lien</button>
+    <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeFormat($event)">Supprimer format</button>
+</div>
+<div #editor class="editor" contenteditable="true" (input)="onContentInput()" (blur)="onContentChange()">
+</div>
