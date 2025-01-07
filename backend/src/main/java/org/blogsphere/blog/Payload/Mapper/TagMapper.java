@@ -20,7 +20,7 @@ public class TagMapper {
             tag.getDescription(),
             tag.getCreatedAt(),
             tag.getUpdatedAt(),
-            tag.getCreatedBy().getId().toString()
+            tag.getCreatedBy()
         );
     }
 }

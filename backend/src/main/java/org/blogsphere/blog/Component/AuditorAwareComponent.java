@@ -17,14 +17,14 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class AuditorAwareComponent implements AuditorAware<User> {
+public class AuditorAwareComponent implements AuditorAware<String> {
 
     private final UserRepository userRepository;
     private static final ThreadLocal<Boolean> AUDITOR_CALL_IN_PROGRESS = new ThreadLocal<>();
 
     @Override
     @Transactional
-    public Optional<User> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
         if (Boolean.TRUE.equals(AUDITOR_CALL_IN_PROGRESS.get())) {
             return Optional.empty();
         }
@@ -36,11 +36,13 @@ public class AuditorAwareComponent implements AuditorAware<User> {
                     .map(Authentication::getPrincipal)
                     .map(p -> {
                         if (p instanceof String) {
-                            return userRepository.findByUsername((String) p)
+                            User user =  userRepository.findByUsername((String) p)
                                     .orElseThrow(UserNotFoundException::new);
+                                return user.getUsername();
                         } else if (p instanceof UserSecurity) {
-                            return userRepository.findByUsername(((UserSecurity) p).getUsername())
+                            User user =  userRepository.findByUsername(((UserSecurity) p).getUsername())
                                     .orElseThrow(UserNotFoundException::new);
+                            return user.getUsername();
                         }
                         return null;
                     });

@@ -19,7 +19,7 @@ public class PostMapper {
             .coverImage(postRequest.coverImage())
             .isPublished(postRequest.isPublished())
             .publishedAt(postRequest.isPublished() == true ? LocalDateTime.now(): null) 
-            .comments(new HashSet<>())
+            //.comments(new HashSet<>())
             .build();
     }
     public PostResponse toPostResponse(Post post){
@@ -33,8 +33,8 @@ public class PostMapper {
             post.getPublishedAt(),
             post.isPublished(),
             post.getTags().stream().map(t -> t.getId().toString()).collect(Collectors.toSet()),
-            post.getComments().stream().map(c -> c.getId().toString()).collect(Collectors.toSet()),
-            post.getCreatedBy().getId().toString()
+           //post.getComments().stream().map(c -> c.getId().toString()).collect(Collectors.toSet()),
+            post.getCreatedBy()
         );
     }
 }

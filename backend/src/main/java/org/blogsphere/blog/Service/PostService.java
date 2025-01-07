@@ -2,6 +2,7 @@ package org.blogsphere.blog.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -51,23 +52,11 @@ public class PostService implements IPostService{
         post.setTitle(postRequest.title());
         post.setContent(postRequest.content());
         post.setPublished(postRequest.isPublished());
-        Set<UUID> tagIds = postRequest.tagsId()
-            .stream()
-            .map(UUID::fromString)
-            .collect(Collectors.toSet());
-
-        Set<Tag> tags = tagRepository.findAllById(tagIds)
-            .stream()
-            .collect(Collectors.toSet());
         
-        if(tags.size() != tagIds.size()){
-            throw new TagNotFoundException();
-        }
-
-        post.setTags(tags);
-        post.setComments(
-            new HashSet<>(post.getComments().stream().collect(Collectors.toSet()))
-        );
+        Set<Tag> updatedTags = getTagsByIds(postRequest.tagsId());
+        // Regénérer un nouvel ensemble pour éviter la référence partagée
+        post.setTags(new HashSet<>(updatedTags));
+        
         postRepository.save(post);
     }
     
@@ -110,7 +99,7 @@ public class PostService implements IPostService{
             .orElseThrow(() -> new PostNotFoundException());
         Comment comment = commentMapper.toComment(commentRequest);
 
-        post.getComments().add(comment);
+        //post.getComments().add(comment);
 
         postRepository.save(post);
     }
@@ -140,4 +129,12 @@ public class PostService implements IPostService{
         postRepository.save(post);
     }
  
+    private Set<Tag> getTagsByIds(Set<String> tagsId){
+        Set<Tag> tags = new HashSet<>();
+        for(String tagId: tagsId){
+            Optional<Tag> tagOptional = tagRepository.findById(UUID.fromString(tagId));
+            tagOptional.ifPresent(tags::add);
+        }
+        return tags;
+    }
 }

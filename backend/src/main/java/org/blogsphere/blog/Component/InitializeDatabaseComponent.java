@@ -31,6 +31,7 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
     private final PostRepository postRepository;
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         createUsers();
         createTags();
@@ -55,7 +56,6 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
 
     @Transactional
     public void createTags() {
-        User user = userRepository.findByUsername("admin0").orElseThrow(() -> new RuntimeException("User not found"));
         List<String> tagNames = List.of(
             "Technology", "Programming", "Java", 
             "Spring Boot", "Database", "Web Development", 
@@ -63,11 +63,11 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
         );
         tagNames.forEach(tagName -> 
             {
-                Tag tag = tagRepository.save(
+                Tag tag = tagRepository.saveAndFlush(
                     Tag.builder()
                         .name(tagName)
                         .description(tagName + " Tag Description")
-                        .createdBy(user)
+                        .createdBy("admin0")
                         .createdAt(LocalDateTime.now())
                         .updatedAt(LocalDateTime.now())
                         .build());
@@ -79,7 +79,6 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
     @Transactional
     public void createPosts() {
         Set<Tag> allTags = Set.copyOf(tagRepository.findAll());
-        User user = userRepository.findByUsername("admin0").get();
         for(int i = 0 ; i < 10 ; i++){
             postRepository.save(
                 Post.builder()
@@ -93,8 +92,8 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
                     .tags(allTags.stream()
                         .limit(3)
                         .collect(Collectors.toSet()))
-                    .createdBy(user)
-                    .comments(Set.of())
+                    .createdBy("admin0")
+                    //.comments(Set.of())
                     .build()
             );
         }

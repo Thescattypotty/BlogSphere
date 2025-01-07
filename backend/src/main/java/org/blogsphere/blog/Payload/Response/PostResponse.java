@@ -22,9 +22,9 @@ public record PostResponse(
 
     Set<String> tagsId,
 
-    Set<String> commentsId,
+    //Set<String> commentsId,
 
-    String createdById
+    String createdBy
 ) {
     
 }
