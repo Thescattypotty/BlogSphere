@@ -14,4 +14,5 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, UUID> {
     @Query("SELECT p FROM Post p JOIN p.tags t WHERE t.id = :tagId")
     List<Post> findByTagsId(@Param("tagId") UUID tagId);
+    List<Post> findByCreatedBy(String createdBy);
 }

@@ -10,6 +10,7 @@ public interface IPostService {
     void createPost(PostRequest postRequest);
     void updatePost(String id , PostRequest postRequest);
     PostResponse getPostById(String id);
+    List<PostResponse> getPostsByUser(String username);
     List<PostResponse> getPostsByTag(String tagId);
     List<PostResponse> getAllPosts();
     void deletePost(String id);

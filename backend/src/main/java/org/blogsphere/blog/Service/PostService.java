@@ -20,6 +20,7 @@ import org.blogsphere.blog.Payload.Mapper.PostMapper;
 import org.blogsphere.blog.Payload.Request.CommentRequest;
 import org.blogsphere.blog.Payload.Request.PostRequest;
 import org.blogsphere.blog.Payload.Response.PostResponse;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -55,30 +56,11 @@ public class PostService implements IPostService{
         
         post.getTags().clear();
         post.setTags(new HashSet<>(this.getTagsByIds(postRequest.tagsId())));
-        /* 
-        Set<UUID> tagIds = postRequest.tagsId()
-            .stream()
-            .map(UUID::fromString)
-            .collect(Collectors.toSet());
-
-        Set<Tag> tags = tagRepository.findAllById(tagIds)
-            .stream()
-            .collect(Collectors.toSet());
-        
-        if(tags.size() != tagIds.size()){
-            throw new TagNotFoundException();
-        }
-
-        post.setTags(tags);
-        */
-        /*
-        post.setComments(
-            new HashSet<>(post.getComments().stream().collect(Collectors.toSet()))
-        );*/
         postRepository.save(post);
     }
     
     @Override
+    @Cacheable(value = "post", key = "#id")
     public PostResponse getPostById(String id) {
         return postRepository.findById(UUID.fromString(id))
             .map(postMapper::toPostResponse)
@@ -86,14 +68,25 @@ public class PostService implements IPostService{
     }
     
     @Override
+    @Cacheable(value = "posts")
     public List<PostResponse> getAllPosts() {
         return postRepository.findAll()
             .stream()
             .map(postMapper::toPostResponse)
             .collect(Collectors.toList());
     }
+
+    @Override
+    @Cacheable(value = "posts", key = "#username")
+    public List<PostResponse> getPostsByUser(String username){
+        return postRepository.findByCreatedBy(username)
+            .stream()
+            .map(postMapper::toPostResponse)
+            .collect(Collectors.toList());
+    }
     
     @Override
+    @Cacheable(value = "posts", key = "#tagId")
     public List<PostResponse> getPostsByTag(String tagId) {
         return postRepository.findByTagsId(UUID.fromString(tagId))
             .stream()

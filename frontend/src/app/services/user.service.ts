@@ -22,6 +22,9 @@ export class UserService {
 	getUser(id: String): Observable<UserResponse> {
 		return this.http.get<UserResponse>(`${this.API_URL}/${id}`);
 	}
+    getUserByUsername(username: String): Observable<UserResponse> {
+        return this.http.get<UserResponse>(`${this.API_URL}/username/${username}`);
+    }
 
 	getAllUsers(): Observable<UserResponse[]> {
 		return this.http.get<UserResponse[]>(this.API_URL);

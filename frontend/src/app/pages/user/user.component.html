@@ -1,0 +1,31 @@
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title">Our Bloggers</h1>
+    <p class="page-description">
+      Meet our talented bloggers who share their insights and stories with the
+      world.
+    </p>
+  </div>
+</section>
+<div class="container-xxl mt-4">
+  <div class="row">
+    <div class="col-lg-4" *ngFor="let user of users">
+      <img
+        src="{{ user.profilePicture }}"
+        alt="{{ user.firstName }}"
+        class="bd-placeholder-img rounded-circle"
+        width="140"
+        height="140"
+      />
+      <h2 class="fw-normal">{{ user.firstName }} {{ user.lastName }}</h2>
+      <p>
+        {{ user.bio }}
+      </p>
+      <p>
+        <a class="btn btn-secondary" [routerLink]="['/users', user.username]">
+          View details &raquo;
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

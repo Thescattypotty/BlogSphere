@@ -3,8 +3,6 @@ package org.blogsphere.blog.Controller;
 
 import java.util.List;
 
-import org.blogsphere.blog.Annotation.IsOwner;
-import org.blogsphere.blog.Annotation.IsUser;
 import org.blogsphere.blog.Payload.Request.CommentRequest;
 import org.blogsphere.blog.Payload.Request.PostRequest;
 import org.blogsphere.blog.Payload.Response.PostResponse;
@@ -49,6 +47,11 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<PostResponse>> getAllPosts(){
         return ResponseEntity.ok(postService.getAllPosts());
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<List<PostResponse>> getPostsByUser(@PathVariable("username") String username){
+        return ResponseEntity.ok(postService.getPostsByUser(username));
     }
 
     @GetMapping("/tag/{tagId}")

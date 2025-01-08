@@ -24,6 +24,11 @@ export class PostService {
 	getAllPosts(): Observable<PostResponse[]> {
 		return this.http.get<PostResponse[]>(this.API_URL);
 	}
+
+    getPostsByUser(username: String): Observable<PostResponse[]> {
+        return this.http.get<PostResponse[]>(`${this.API_URL}/user/${username}`);
+    }
+
     getPostsByTag(tagId: String): Observable<PostResponse[]> {
         return this.http.get<PostResponse[]>(`${this.API_URL}/tag/${tagId}`);
     }

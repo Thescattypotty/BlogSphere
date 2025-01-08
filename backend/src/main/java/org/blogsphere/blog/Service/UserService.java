@@ -61,6 +61,14 @@ public class UserService implements IUserService{
     }
 
     @Override
+    @Cacheable(value = "user", key = "#username")
+    public UserResponse getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+            .map(userMapper::toUserResponse)
+            .orElseThrow(() -> new UserNotFoundException());
+    }
+
+    @Override
     @Cacheable(value = "users")
     public List<UserResponse> findUsers() {
         return userRepository.findAll()

@@ -9,6 +9,8 @@ import { TagsDashboardComponent } from './pages/dashboardPages/tags-dashboard/ta
 import { PostsDashboardComponent } from './pages/dashboardPages/posts-dashboard/posts-dashboard.component';
 import { PostComponent } from './pages/post/post.component';
 import { UsersDashboardComponent } from './pages/dashboardPages/users-dashboard/users-dashboard.component';
+import { UserComponent } from './pages/user/user.component';
+import { UserPostsComponent } from './pages/user-posts/user-posts.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -18,6 +20,12 @@ export const routes: Routes = [
         path: 'tags/:id', component: TagComponent
     },
     {
+        path: 'users', component: UserComponent,
+    },
+    {
+        path: 'users/:username', component: UserPostsComponent
+    },
+    {
         path: ':id', component: PostComponent 
     },
     {
@@ -25,7 +33,7 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children:[
             {
-                path: '', component: DashboardComponent
+                path: '', redirectTo: 'posts', pathMatch: 'full'
             },
             {
                 path: 'tags', component: TagsDashboardComponent,
@@ -39,4 +47,3 @@ export const routes: Routes = [
         ]
     },
 ];
-

@@ -27,7 +27,6 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
 
     private final UserService userService;
     private final TagRepository tagRepository;
-    private final UserRepository userRepository;
     private final PostRepository postRepository;
 
     @Override
@@ -48,7 +47,7 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
                 "admin",
                 "admin",
                 Set.of(ERole.ROLE_USER, ERole.ROLE_ADMIN),
-                "admin" + i,
+                "https://bennis-yahya.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fprofile.873f1cc2.jpeg&w=3840&q=75",
                 "admin" + i
             )
         ));

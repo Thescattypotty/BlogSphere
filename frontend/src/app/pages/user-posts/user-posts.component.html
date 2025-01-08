@@ -1,0 +1,23 @@
+<main class="container">
+    <div class="text-center my-4">
+        <h1>Posts For User: {{user?.firstName}} {{user?.lastName}}</h1>
+        <p class="card-body">
+            {{user?.bio}}
+        </p>
+        <p>Total posts: {{posts.length}}</p>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6" *ngFor="let post of posts">
+            <app-card-post
+                [listTags]="post.tagsId"
+                title="{{post.title}}"
+                description=""
+                link="{{post.id}}"
+                textLink="Continue Reading"
+                [coverImage]="post.coverImage"
+            >
+            </app-card-post>
+        </div>
+    </div>
+
+</main>

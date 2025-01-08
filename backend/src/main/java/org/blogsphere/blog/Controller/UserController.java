@@ -2,8 +2,6 @@ package org.blogsphere.blog.Controller;
 
 import java.util.List;
 
-import org.blogsphere.blog.Annotation.IsAdmin;
-import org.blogsphere.blog.Annotation.IsUser;
 import org.blogsphere.blog.Enum.ERole;
 import org.blogsphere.blog.Payload.Request.ChangePasswordRequest;
 import org.blogsphere.blog.Payload.Request.RegisterRequest;
@@ -46,6 +44,10 @@ public class UserController {
     public ResponseEntity<UserResponse> getUser(@PathVariable("id") String id){
         return ResponseEntity.ok(userService.getUserById(id));
     }
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserResponse> getUserByUsername(@PathVariable("username") String username){
+        return ResponseEntity.ok(userService.getUserByUsername(username));
+    }
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers(){
@@ -71,7 +73,6 @@ public class UserController {
     }
 
     @PutMapping("/changepassword/{id}")
-    @IsUser
     public ResponseEntity<Void> changePassword(@PathVariable("id") String id , @RequestBody @Valid ChangePasswordRequest changePasswordRequest){
         userService.updatePassword(id, changePasswordRequest);
         return new ResponseEntity<>(HttpStatus.OK);

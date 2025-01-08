@@ -14,7 +14,9 @@ public interface IUserService {
     
     void updateUser(String id, UserRequest userRequest);
     
-    UserResponse getUserById(String id);    
+    UserResponse getUserById(String id);  
+    
+    UserResponse getUserByUsername(String username);
     
     List<UserResponse> findUsers();
 
