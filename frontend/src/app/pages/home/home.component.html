@@ -21,5 +21,16 @@
     </div>
   </div>
   <div class="row mb-2">
+    <div class="col-md-6" *ngFor="let post of posts">
+        <app-card-post
+            [listTags]="post.tagsId"
+            title="{{post.title}}"
+            description=""
+            link="{{post.id}}"
+            textLink="Continue Reading"
+            [coverImage]="post.coverImage"
+        >
+        </app-card-post>
+    </div>
   </div>
 </main>

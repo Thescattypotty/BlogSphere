@@ -83,8 +83,25 @@ public class InitializeDatabaseComponent implements CommandLineRunner {
             postRepository.save(
                 Post.builder()
                     .title("Post Title " + i)
-                    .content("Post Content " + i)
-                    .coverImage("https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png")
+                            .content("<div class='blog-content'>" +
+                                    "<h1>Article #" + i + "</h1>" +
+                                    "<p><i>Introduction au sujet passionnant...</i></p>" +
+                                    "<img src='https://bennis-yahya.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-light.200d1746.png&w=256&q=75' alt='Image descriptive' class='img-fluid'/>" +
+                                    "<p>Lorem ipsum dolor sit amet, <b>consectetur adipiscing elit</b>. Sed do eiusmod tempor incididunt ut labore.</p>"
+                                    +
+                                    "<table class='table table-bordered'>" +
+                                    "<tr><th>Colonne 1</th><th>Colonne 2</th></tr>" +
+                                    "<tr><td>Donnée 1</td><td>Donnée 2</td></tr>" +
+                                    "<tr><td>Donnée 3</td><td>Donnée 4</td></tr>" +
+                                    "</table>" +
+                                    "<ul>" +
+                                    "<li>Point important 1</li>" +
+                                    "<li>Point important 2</li>" +
+                                    "<li>Point important 3</li>" +
+                                    "</ul>" +
+                                    "<blockquote>Une citation inspirante pour conclure.</blockquote>" +
+                                    "</div>")
+                    .coverImage("https://bennis-yahya.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-light.200d1746.png&w=256&q=75")
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
                     .publishedAt(LocalDateTime.now())
