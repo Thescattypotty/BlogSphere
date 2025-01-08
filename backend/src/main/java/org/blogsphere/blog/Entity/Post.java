@@ -1,7 +1,6 @@
 package org.blogsphere.blog.Entity;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,8 +17,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
@@ -41,7 +38,7 @@ import lombok.Setter;
 @Table(
     name = "posts", 
     indexes = {
-        @Index(name = "idx_post_created_by", columnList = "createdBy_id"),
+        @Index(name = "idx_post_created_by", columnList = "createdBy"),
     }
 )
 @EntityListeners(AuditingEntityListener.class)
@@ -84,7 +81,7 @@ public class Post {
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags;
     /*
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_id", nullable = true)

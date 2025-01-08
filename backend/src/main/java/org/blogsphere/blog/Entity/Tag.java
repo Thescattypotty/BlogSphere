@@ -14,6 +14,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,12 @@ import lombok.Setter;
 @Setter
 @Builder
 @Entity
-@Table(name = "tags")
+@Table(
+    name = "tags", 
+    indexes = {
+        @Index(name = "idx_tag_created_by", columnList = "createdBy"),
+    }
+)
 @EntityListeners(AuditingEntityListener.class)
 public class Tag {
     @Id

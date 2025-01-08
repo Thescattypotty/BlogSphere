@@ -116,7 +116,7 @@ export class PostsDashboardComponent implements OnInit {
     reloadTags(){
         this.tagService.getAllTags().subscribe({
             next: (response) => {
-                this.tags = this.tags;
+                this.tags = response;
             },
             error: (error) =>{
                 console.log(error);
@@ -125,8 +125,23 @@ export class PostsDashboardComponent implements OnInit {
     }
 
     getTagsNames(tagsId: String[]) {
-        let tagNames: String  = '';
-        
+        let tagNames: String = '';
+
+        if (!tagsId || tagsId.length === 0) {
+            return tagNames;
+        }
+
+        tagsId.forEach((tagId, index) => {
+            const tag = this.tags.find(t => t.id === tagId);
+            if (tag) {
+                tagNames += tag.name.toString();
+                if (index < tagsId.length - 1) {
+                    tagNames += ', ';
+                }
+            }
+        });
+
+        return tagNames;
     }
 
     ngOnInit(): void {
