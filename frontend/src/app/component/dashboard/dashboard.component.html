@@ -267,12 +267,6 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" routerLink="/dashboard/users">
                 <svg class="bi"><use xlink:href="#people"/></svg>
-                List Users
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" routerLink="/dashboard/users">
-                <svg class="bi"><use xlink:href="#people"/></svg>
                 Manage Users
               </a>
             </li>
@@ -288,10 +282,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <button class="nav-link d-flex align-items-center gap-2" type="button" (click)="logout()">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
                 Sign out
-              </a>
+              </button>
             </li>
           </ul>
         </div>

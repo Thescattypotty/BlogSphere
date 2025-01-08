@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UserResponse } from '../models/user-response';
 import { ERole } from '../models/role';
 import { ChangepasswordRequest } from '../models/changepassword-request';
+import { UserRequest } from '../models/user-request';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,7 +19,7 @@ export class UserService {
 		return this.http.post<void>(this.API_URL, registerRequest);
 	}
 
-	getUser(id: string): Observable<UserResponse> {
+	getUser(id: String): Observable<UserResponse> {
 		return this.http.get<UserResponse>(`${this.API_URL}/${id}`);
 	}
 
@@ -26,23 +27,23 @@ export class UserService {
 		return this.http.get<UserResponse[]>(this.API_URL);
 	}
 	
-	updateUser(id: string, userRequest: RegisterRequest): Observable<void> {
+    updateUser(id: String, userRequest: UserRequest): Observable<void> {
 		return this.http.put<void>(`${this.API_URL}/${id}`, userRequest);
 	}
 
-	deleteUser(id: string): Observable<void> {
+    deleteUser(id: String): Observable<void> {
 		return this.http.delete<void>(`${this.API_URL}/${id}`);
 	}
 
-	addRoleToUser(id: string, role: ERole): Observable<void> {
+    addRoleToUser(id: String, role: ERole): Observable<void> {
 		return this.http.put<void>(`${this.API_URL}/role/${id}`, role);
 	}
 
-	removeRoleFromUser(id: string, role: ERole): Observable<void> {
+    removeRoleFromUser(id: String, role: ERole): Observable<void> {
 		return this.http.delete<void>(`${this.API_URL}/role/${id}`, { body: role });
 	}
 
-	changePassword(id: string, changePasswordRequest: ChangepasswordRequest): Observable<void> {
+    changePassword(id: String, changePasswordRequest: ChangepasswordRequest): Observable<void> {
 		return this.http.put<void>(`${this.API_URL}/changepassword/${id}`, changePasswordRequest);
 	}
 }

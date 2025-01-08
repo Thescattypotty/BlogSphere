@@ -5,7 +5,7 @@ import { TagService } from '../../services/tag.service';
 import { PostResponse } from '../../models/post-response';
 import { PostSidebarComponent } from "../../component/post-sidebar/post-sidebar.component";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { NgIf } from '@angular/common';
+import { DatePipe, NgIf } from '@angular/common';
 @Component({
     selector: 'app-post',
     standalone: true,

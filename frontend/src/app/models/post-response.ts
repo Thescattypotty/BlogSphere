@@ -9,6 +9,6 @@ export interface PostResponse {
     isPublished: Boolean;
     tagsId: String[];
     commentsId: String[];
-    createdById: String;
+    createdBy: String;
 
 }

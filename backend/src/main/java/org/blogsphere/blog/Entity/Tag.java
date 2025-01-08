@@ -1,6 +1,5 @@
 package org.blogsphere.blog.Entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,11 +29,9 @@ import lombok.Setter;
 @Setter
 @Builder
 @Entity
+@Table(name = "tags")
 @EntityListeners(AuditingEntityListener.class)
-public class Tag implements Serializable{
-
-    private static final long serialVersionUID = 2L;
-
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -53,20 +51,4 @@ public class Tag implements Serializable{
 
     @CreatedBy
     private String createdBy;
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if(this == o) return true;
-        if(o == null || getClass() != o.getClass()) return false;
-        Tag tag = (Tag) o;
-        return id.equals(tag.id);
-    }
-
-
-    
 }

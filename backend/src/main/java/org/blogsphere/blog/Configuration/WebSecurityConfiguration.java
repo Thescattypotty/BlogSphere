@@ -69,6 +69,7 @@ public class WebSecurityConfiguration {
         "/api/v1/test/**",
         "/h2-console/**",
         "/api/v1/posts/**",
-        "/api/v1/tags/**"
+        "/api/v1/tags/**",
+        "/api/v1/users/**"
     };
 }

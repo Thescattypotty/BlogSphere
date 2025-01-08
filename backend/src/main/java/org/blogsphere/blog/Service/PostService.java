@@ -53,10 +53,28 @@ public class PostService implements IPostService{
         post.setContent(postRequest.content());
         post.setPublished(postRequest.isPublished());
         
-        Set<Tag> updatedTags = getTagsByIds(postRequest.tagsId());
-        // Regénérer un nouvel ensemble pour éviter la référence partagée
-        post.setTags(new HashSet<>(updatedTags));
+        post.getTags().clear();
+        post.setTags(new HashSet<>(this.getTagsByIds(postRequest.tagsId())));
+        /* 
+        Set<UUID> tagIds = postRequest.tagsId()
+            .stream()
+            .map(UUID::fromString)
+            .collect(Collectors.toSet());
+
+        Set<Tag> tags = tagRepository.findAllById(tagIds)
+            .stream()
+            .collect(Collectors.toSet());
         
+        if(tags.size() != tagIds.size()){
+            throw new TagNotFoundException();
+        }
+
+        post.setTags(tags);
+        */
+        /*
+        post.setComments(
+            new HashSet<>(post.getComments().stream().collect(Collectors.toSet()))
+        );*/
         postRepository.save(post);
     }
     

@@ -24,8 +24,10 @@
         <td>{{ post.createdAt }}</td>
         <td>{{ post.updatedAt }}</td>
         <td>{{ post.isPublished }}</td>
-        <td>{{ post.tagsId }}</td>
-        <td>{{ post.createdById }}</td>
+        <td>
+          {{getTagsNames(post.tagsId)}}
+        </td>
+        <td>{{ post.createdBy }}</td>
         <td>
           <button class="btn btn-sm btn-warning me-2" (click)="editPost(post.id)">
             <i class="bi bi-pencil"></i>

@@ -15,6 +15,7 @@ import org.blogsphere.blog.Payload.Request.ChangePasswordRequest;
 import org.blogsphere.blog.Payload.Request.RegisterRequest;
 import org.blogsphere.blog.Payload.Request.UserRequest;
 import org.blogsphere.blog.Payload.Response.UserResponse;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,7 @@ public class UserService implements IUserService{
     }
 
     @Override
+    @Cacheable(value = "user", key = "#id")
     public UserResponse getUserById(String id) {
         return userRepository.findById(UUID.fromString(id))
             .map(userMapper::toUserResponse)
@@ -59,6 +61,7 @@ public class UserService implements IUserService{
     }
 
     @Override
+    @Cacheable(value = "users")
     public List<UserResponse> findUsers() {
         return userRepository.findAll()
             .stream()

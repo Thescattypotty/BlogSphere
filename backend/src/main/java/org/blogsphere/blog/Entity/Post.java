@@ -1,7 +1,7 @@
 package org.blogsphere.blog.Entity;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -10,14 +10,18 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -34,11 +38,15 @@ import lombok.Setter;
 @Setter
 @Builder
 @Entity
+@Table(
+    name = "posts", 
+    indexes = {
+        @Index(name = "idx_post_created_by", columnList = "createdBy_id"),
+    }
+)
 @EntityListeners(AuditingEntityListener.class)
-public class Post implements Serializable{
+public class Post {
     
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -54,46 +62,34 @@ public class Post implements Serializable{
     @Column(nullable = false, columnDefinition = "TEXT")
     private String coverImage;
 
-    private LocalDateTime publishedAt;
-
-    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean isPublished;
-
-    @ManyToMany
-    @JoinTable(
-        name = "post_tags",
-        joinColumns = @JoinColumn(name = "post_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
-    )
-    @JsonIgnore
-    private Set<Tag> tags;
-
-    @CreatedBy
-    private String createdBy;
-    
     @CreatedDate
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return id.equals(post.id);
-    }
+    private LocalDateTime publishedAt;
 
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isPublished;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE,
+        CascadeType.REFRESH,
+        CascadeType.DETACH
+    })
+    @JoinTable(
+        name = "post_tags",
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+    /*
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_id", nullable = true)
+    private Set<Comment> comments;
+    */
+    @CreatedBy
+    private String createdBy;
 }
-/*
- * @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval
- * = true)
- * 
- * @JoinColumn(name = "post_id", nullable = true)
- * private Set<Comment> comments;
- */

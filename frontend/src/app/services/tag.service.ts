@@ -31,4 +31,7 @@ export class TagService {
     deleteTag(id: String): Observable<void> {
 		return this.http.delete<void>(`${this.API_URL}/${id}`);
 	}
+    tagsNameByIds(ids: String[]): Observable<String[]> {
+        return this.http.post<String[]>(`${this.API_URL}/names`, ids);
+    }
 }

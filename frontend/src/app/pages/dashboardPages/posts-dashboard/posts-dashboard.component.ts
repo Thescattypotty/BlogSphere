@@ -3,14 +3,16 @@ import { PostService } from '../../../services/post.service';
 import { PostResponse } from '../../../models/post-response';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { PostFormComponent } from '../../../component/modal/post-form/post-form.component';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PostRequest } from '../../../models/post-request';
+import { TagService } from '../../../services/tag.service';
+import { TagResponse } from '../../../models/tag-response';
 
 @Component({
     selector: 'app-posts-dashboard',
     standalone: true,
-    imports: [NgFor, FormsModule, MdbModalModule],
+    imports: [NgFor, FormsModule, MdbModalModule, NgIf],
     templateUrl: './posts-dashboard.component.html',
     styleUrl: './posts-dashboard.component.css'
 })
@@ -19,12 +21,14 @@ export class PostsDashboardComponent implements OnInit {
     posts: PostResponse[] = [];
     isLoading: boolean = true;
     postGetted: PostResponse | null = null;
+    tags: TagResponse[] = [];
 
     modalRef: MdbModalRef<PostFormComponent> | null = null;
 
     constructor(
         private postService: PostService,
-        private modalService: MdbModalService
+        private modalService: MdbModalService,
+        private tagService: TagService
     ) {
     }
 
@@ -108,8 +112,26 @@ export class PostsDashboardComponent implements OnInit {
             }
         });
     }
+
+    reloadTags(){
+        this.tagService.getAllTags().subscribe({
+            next: (response) => {
+                this.tags = this.tags;
+            },
+            error: (error) =>{
+                console.log(error);
+            }
+        });
+    }
+
+    getTagsNames(tagsId: String[]) {
+        let tagNames: String  = '';
+        
+    }
+
     ngOnInit(): void {
         this.reloadPosts();
+        this.reloadTags();
     }
 
 }

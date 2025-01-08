@@ -1,6 +1,7 @@
 package org.blogsphere.blog.IService;
 
 import java.util.List;
+import java.util.Set;
 
 import org.blogsphere.blog.Payload.Request.TagRequest;
 import org.blogsphere.blog.Payload.Response.TagResponse;
@@ -13,5 +14,7 @@ public interface ITagService {
     TagResponse getTagById(String id);
 
     List<TagResponse> getAllTags();
+
+    List<String> getTagsNameByIds(Set<String> tagsId);
     
 }

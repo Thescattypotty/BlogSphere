@@ -1,8 +1,8 @@
 package org.blogsphere.blog.Controller;
 
 import java.util.List;
+import java.util.Set;
 
-import org.blogsphere.blog.Annotation.IsUser;
 import org.blogsphere.blog.Payload.Request.TagRequest;
 import org.blogsphere.blog.Payload.Response.TagResponse;
 import org.blogsphere.blog.Service.TagService;
@@ -52,5 +52,10 @@ public class TagController {
     @GetMapping
     public ResponseEntity<List<TagResponse>> getAllTags(){
         return ResponseEntity.ok(tagService.getAllTags());
+    }
+
+    @PostMapping("/names")
+    public ResponseEntity<List<String>> getTagsNameByIds(@RequestBody Set<String> tagsId){
+        return ResponseEntity.ok(tagService.getTagsNameByIds(tagsId));
     }
 }

@@ -8,6 +8,7 @@ import { TagComponent } from './pages/tag/tag.component';
 import { TagsDashboardComponent } from './pages/dashboardPages/tags-dashboard/tags-dashboard.component';
 import { PostsDashboardComponent } from './pages/dashboardPages/posts-dashboard/posts-dashboard.component';
 import { PostComponent } from './pages/post/post.component';
+import { UsersDashboardComponent } from './pages/dashboardPages/users-dashboard/users-dashboard.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -33,12 +34,7 @@ export const routes: Routes = [
                 path: 'posts', component: PostsDashboardComponent,
             },
             {
-                path: 'users', component: DashboardComponent,
-                children: [
-                    {
-                        path: ':id', component: DashboardComponent
-                    }
-                ]
+                path: 'users', component: UsersDashboardComponent,
             },
         ]
     },

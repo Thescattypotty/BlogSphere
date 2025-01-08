@@ -1,74 +1,79 @@
 <div>
-    <div class="modal-header">
-  <h5 class="modal-title" id="exampleModalLabel">Post Form</h5>
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="modalRef.close()">
-    </button>
-</div>
-<div class="modal-body">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Post Form</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <div class="modal-body">
     <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input 
-                type="text" 
-                class="form-control"
-                id="name" 
-                name="name"
-                [(ngModel)]="post!.title" 
-                required 
-                />
-        </div>
-        <div class="form-group">
-            <app-post-desctiption-editor [(content)]="post!.content">
-            </app-post-desctiption-editor>
-        </div>
-        <div class="form-group">
-            <label for="coverImage">Cover Image</label>
-            <input 
-                type="text" 
-                class="form-control"
-                id="coverImage" 
-                name="coverImage"
-                [(ngModel)]="post!.coverImage" 
-                required 
-                />
-        </div>
-        <div class="form-group">
-            <label for="name">IsPublished</label>
-            <input 
-                type="text" 
-                class="form-control"
-                id="isPublished" 
-                name="isPublished"
-                [(ngModel)]="post!.isPublished" 
-                required 
-                />
-        </div>
-        <div class="form-group">
-            <label for="tagsId"> Tags</label>
-            <select 
-                class="form-control"
-                id="tagsId"
-                name="tagsId"
-                [(ngModel)]="post!.tagsId"
-                required
-                multiple
-                >
-                <option *ngFor="let tag of tags" [value]="tag.id">
-                    {{tag.name}}
-                </option>
-            </select>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
-                Close
-            </button>
-            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Save changes</button>
-        </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          [(ngModel)]="post!.title"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <app-post-desctiption-editor [(content)]="post!.content">
+        </app-post-desctiption-editor>
+      </div>
+      <div class="form-group">
+        <label for="coverImage">Cover Image</label>
+        <input
+          type="text"
+          class="form-control"
+          id="coverImage"
+          name="coverImage"
+          [(ngModel)]="post!.coverImage"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">IsPublished</label>
+        <input
+          type="text"
+          class="form-control"
+          id="isPublished"
+          name="isPublished"
+          [(ngModel)]="post!.isPublished"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="tagsId"> Tags</label>
+        <select
+          class="form-control"
+          id="tagsId"
+          name="tagsId"
+          [(ngModel)]="post!.tagsId"
+          required
+          multiple
+        >
+          <option *ngFor="let tag of tags" [value]="tag.id">
+            {{ tag.name }}
+          </option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="modalRef.close()"
+        >
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+          Save changes
+        </button>
+      </div>
     </form>
-</div>
-
+  </div>
 </div>
