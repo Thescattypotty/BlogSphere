@@ -4,6 +4,7 @@ import { RegisterRequest } from '../../../models/register-request';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-user-form',
@@ -22,12 +23,13 @@ export class UserFormComponent implements OnInit{
     }
     constructor(
         public modalRef: MdbModalRef<UserFormComponent>,
+        private alertService: AlertService
     ) {
 
     }
     close(): void {
         if (this.isUserEmpty(this.user)) {
-            console.log("User is empty");
+            this.alertService.add("User is empty");
             return;
         }
         this.modalRef.close(this.user);

@@ -6,6 +6,7 @@ import { TagResponse } from '../../../models/tag-response';
 import { TagService } from '../../../services/tag.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { PostDesctiptionEditorComponent } from "../../post-desctiption-editor/post-desctiption-editor.component";
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
     selector: 'app-post-form',
@@ -25,14 +26,15 @@ export class PostFormComponent implements OnInit {
     }
     constructor(
         public modalRef: MdbModalRef<PostFormComponent>,
-        private tagService: TagService
+        private tagService: TagService,
+        private alertService: AlertService
     ) {
 
     }
 
     close(): void {
         if (this.isPostEmpty(this.post)) {
-            console.log("Post is empty");
+            this.alertService.add("Post is empty");
             return;
         }
         this.modalRef.close(this.post);
@@ -47,7 +49,7 @@ export class PostFormComponent implements OnInit {
                 this.tags = response;
             },
             error: (error) => {
-                console.error('Error Getting Tags : ', error);
+                this.alertService.add('Error Getting Tags : '+ error);
                 this.modalRef.close();
             }
         });

@@ -3,6 +3,7 @@ import { PostResponse } from '../../models/post-response';
 import { PostService } from '../../services/post.service';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-post-sidebar',
@@ -15,7 +16,7 @@ export class PostSidebarComponent implements OnInit {
 
     posts: PostResponse[] = [];
 
-    constructor(private postService: PostService) {
+    constructor(private postService: PostService, private alertService: AlertService) {
     }
 
     reloadPosts(){
@@ -24,7 +25,7 @@ export class PostSidebarComponent implements OnInit {
                 this.posts = this.getRandomPosts(response, 3, 4);
             },
             error: (error) => {
-                console.error('Error Fetching Posts : ', error);
+                this.alertService.add('Error Fetching Posts : ' + error);
             }
         });
     }

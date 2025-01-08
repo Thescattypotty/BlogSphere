@@ -6,6 +6,7 @@ import { PostResponse } from '../../models/post-response';
 import { PostSidebarComponent } from "../../component/post-sidebar/post-sidebar.component";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { DatePipe, NgIf } from '@angular/common';
+import { AlertService } from '../../services/alert.service';
 @Component({
     selector: 'app-post',
     standalone: true,
@@ -24,7 +25,8 @@ export class PostComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private postService: PostService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private alertService: AlertService
     ) { }
 
     ngOnInit(): void {
@@ -44,10 +46,9 @@ export class PostComponent implements OnInit {
             next: (response) => {
                 this.post = response;
                 this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(response.content.toString() || '');
-                console.log(response);
             },
             error: (error) => {
-                console.log(error);
+                this.alertService.add(error);
             }
         });
     }
@@ -57,7 +58,7 @@ export class PostComponent implements OnInit {
                 this.randomPost = response.sort(() => Math.random() - 0.5).slice(0, 2);
             },
             error: (error) => {
-                console.error('Error Getting Random Posts : ', error);
+                this.alertService.add('Error Getting Random Posts : '+ error);
             }
         })
     }

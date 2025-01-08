@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserResponse } from '../../models/user-response';
 import { NgFor } from '@angular/common';
 import { CardPostComponent } from '../../component/card-post/card-post.component';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
     selector: 'app-user-posts',
@@ -25,6 +26,7 @@ export class UserPostsComponent implements OnInit {
         private postService: PostService,
         private route: ActivatedRoute,
         private router: Router,
+        private alertService: AlertService
     ) { }
 
     ngOnInit(): void {
@@ -46,7 +48,7 @@ export class UserPostsComponent implements OnInit {
                 this.user = response;
             },
             error: (error) => {
-                console.error(error);
+                this.alertService.add(error);
             }
         });
     }
@@ -57,7 +59,7 @@ export class UserPostsComponent implements OnInit {
                 this.posts = response;
             },
             error: (error) => {
-                console.error(error);
+                this.alertService.add(error);
             }
         });
     }

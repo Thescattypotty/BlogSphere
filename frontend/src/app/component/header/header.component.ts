@@ -6,6 +6,7 @@ import { ErrorResponse } from '../../models/error-response';
 import { NgFor, NgIf } from '@angular/common';
 import { catchError, of } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,12 @@ export class HeaderComponent implements OnInit{
 	errorMessage: ErrorResponse | null = null;
 	isLoading: boolean = true;
 
-	constructor(private tagService: TagService, private authService: AuthService, private router: Router){ }
+	constructor(
+        private tagService: TagService,
+        private authService: AuthService,
+        private router: Router,
+        private alertService: AlertService
+    ){ }
 
 	get isAuthenticated(): boolean{
 		return this.authService.isLoggedIn();
@@ -34,7 +40,7 @@ export class HeaderComponent implements OnInit{
 	ngOnInit(): void {
 		this.tagService.getAllTags().pipe(
 			catchError(error => {
-				console.error('Error fetching tags:', error);
+				this.alertService.add('Error fetching tags');
 				this.errorMessage = error.message || 'Failed to load tags';
 				this.isLoading = false;
 				return of([]);

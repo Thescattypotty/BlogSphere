@@ -8,6 +8,7 @@ import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit
 import { FormsModule } from '@angular/forms';
 import { TagCreateComponent } from '../../../component/modal/tag-create/tag-create.component';
 import { TagRequest } from '../../../models/tag-request';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
     selector: 'app-tags-dashboard',
@@ -27,7 +28,8 @@ export class TagsDashboardComponent implements OnInit{
     constructor(
         private router: Router,
         private tagService: TagService,
-        private modalService: MdbModalService
+        private modalService: MdbModalService,
+        private alertService: AlertService
     ){}
 
 
@@ -39,11 +41,10 @@ export class TagsDashboardComponent implements OnInit{
             }
             this.tagService.createTag(newTag).subscribe({
                 next: (response) => {
-                    console.log('Response : ' , response);
                     this.reloadTags();
                 },
                 error: (error) => {
-                    console.error('Error Creating Tag : ', error);
+                    this.alertService.add('Error Creating Tag : '+ error);
                 }
             })
         })
@@ -69,17 +70,16 @@ export class TagsDashboardComponent implements OnInit{
                     }
                     this.tagService.updateTag(id, editTag).subscribe({
                         next: (response) => {
-                            console.log('Response : ' , response);
                             this.reloadTags();
                         },
                         error: (error) => {
-                            console.error('Error Updating Tag : ', error);
+                            this.alertService.add('Error Updating Tag : '+ error);
                         }
                     });
                 });
             },
             error: (error) => {
-                console.error('Error Fetching Tag : ', error);
+                this.alertService.add('Error Fetching Tag : '+ error);
             }
         });
     }
@@ -87,11 +87,10 @@ export class TagsDashboardComponent implements OnInit{
     deleteTag(id: String){
         this.tagService.deleteTag(id).subscribe({
             next: (response) => {
-                console.log('Response : ' , response);
                 this.reloadTags();
             },
             error: (error) => {
-                console.error('Error Deleting Tag : ', error);
+                this.alertService.add('Error Deleting Tag : '+ error);
             }
         });
     }
@@ -99,7 +98,7 @@ export class TagsDashboardComponent implements OnInit{
     reloadTags(): void{
         this.tagService.getAllTags().pipe(
             catchError(error => {
-                console.error('Error fetching tags:', error);
+                this.alertService.add('Error fetching tags:'+ error);
                 return of([]);
             })
         ).subscribe({

@@ -8,6 +8,7 @@ import { UserService } from '../../../services/user.service';
 import { UserRequest } from '../../../models/user-request';
 import { RegisterRequest } from '../../../models/register-request';
 import { create } from 'domain';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-users-dashboard',
@@ -26,7 +27,8 @@ export class UsersDashboardComponent implements OnInit{
 
     constructor(
         private userService: UserService,
-        private modalService: MdbModalService
+        private modalService: MdbModalService,
+        private alertService: AlertService
     ){
 
     }
@@ -41,11 +43,10 @@ export class UsersDashboardComponent implements OnInit{
             }
             this.userService.createUser(newUser).subscribe({
                 next: (response) => {
-                    console.log('Response : ', response);
                     this.reloadUsers();
                 },
                 error: (error) => {
-                    console.error('Error Creating User : ', error);
+                    this.alertService.add('Error Creating User : '+ error);
                 }
             });
         });
@@ -77,28 +78,26 @@ export class UsersDashboardComponent implements OnInit{
                     }
                     this.userService.updateUser(id, editedUser).subscribe({
                         next: (response) => {
-                            console.log('Response : ', response);
                             this.reloadUsers();
                         },
                         error: (error) => {
-                            console.error('Error Editing User : ', error);
+                            this.alertService.add('Error Editing User : '+ error);
                         }
                     });
                 });
             },
             error: (error) => {
-                console.error('Error Getting User : ', error);
+                this.alertService.add('Error Getting User : '+ error);
             }
         });
     }
     deleteUser(id: String){
         this.userService.deleteUser(id).subscribe({
             next: (response) => {
-                console.log('Response : ', response);
                 this.reloadUsers();
             },
             error: (error) => {
-                console.error('Error Deleting User : ', error);
+                this.alertService.add('Error Deleting User : '+ error);
             }
         });
     }
@@ -111,7 +110,7 @@ export class UsersDashboardComponent implements OnInit{
                 this.isLoading = false;
             },
             error: (error) => {
-                console.error('Error Getting Users : ', error);
+                this.alertService.add('Error Getting Users : '+ error);
                 this.isLoading = false;
             }
         });

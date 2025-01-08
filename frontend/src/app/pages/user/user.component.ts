@@ -4,6 +4,7 @@ import { PostService } from '../../services/post.service';
 import { UserResponse } from '../../models/user-response';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +18,8 @@ export class UserComponent implements OnInit{
     users: UserResponse[] = [];
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private alertService: AlertService
     ){
     }
 
@@ -27,7 +29,7 @@ export class UserComponent implements OnInit{
                 this.users = response;
             },
             error: (error) => {
-                console.error(error);
+                this.alertService.add(error);
             }
         })
     }

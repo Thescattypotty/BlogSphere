@@ -6,6 +6,7 @@ import { PostResponse } from '../../models/post-response';
 import { NgFor } from '@angular/common';
 import { CardPostComponent } from "../../component/card-post/card-post.component";
 import { TagResponse } from '../../models/tag-response';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-tag',
@@ -23,7 +24,8 @@ export class TagComponent implements OnInit {
         private route: ActivatedRoute,
         private tagService: TagService,
         private postService: PostService,
-        private router: Router
+        private router: Router,
+        private alertService: AlertService
     ) {
 
     }
@@ -47,7 +49,7 @@ export class TagComponent implements OnInit {
                 this.tag = response;
             },
             error: (error) => {
-                console.log(error);
+                this.alertService.add(error);
             }
         });
     }
@@ -58,7 +60,7 @@ export class TagComponent implements OnInit {
                 this.posts = response;
             },
             error: (error) => {
-                console.log(error);
+                this.alertService.add(error);
             }
         });
     }

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PostRequest } from '../../../models/post-request';
 import { TagService } from '../../../services/tag.service';
 import { TagResponse } from '../../../models/tag-response';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
     selector: 'app-posts-dashboard',
@@ -28,7 +29,8 @@ export class PostsDashboardComponent implements OnInit {
     constructor(
         private postService: PostService,
         private modalService: MdbModalService,
-        private tagService: TagService
+        private tagService: TagService,
+        private alertService: AlertService
     ) {
     }
 
@@ -42,11 +44,10 @@ export class PostsDashboardComponent implements OnInit {
             }
             this.postService.createPost(newPost).subscribe({
                 next: (response) => {
-                    console.log('Response : ' , response);
                     this.reloadPosts();
                 },
                 error: (error) => {
-                    console.error('Error Creating Post : ', error);
+                    this.alertService.add('Error Creating Post : '+ error);
                 }
             });
         });
@@ -76,28 +77,26 @@ export class PostsDashboardComponent implements OnInit {
                     }
                     this.postService.updatePost(id, editedPost).subscribe({
                         next: (response) => {
-                            console.log('Response : ', response);
                             this.reloadPosts();
                         },
                         error: (error) => {
-                            console.error('Error Updating Post : ', error);
+                            this.alertService.add('Error Updating Post : '+ error);
                         }
                     });
                 });
             },
             error: (error) => {
-                console.error('Error Getting Post : ', error);
+                this.alertService.add('Error Getting Post : '+ error);
             }
         });
     }
     deletePost(id: String) {
         this.postService.deletePost(id).subscribe({
             next: (response) => {
-                console.log('Response : ', response);
                 this.reloadPosts();
             },
             error: (error) => {
-                console.error('Error Deleting Post : ', error);
+                this.alertService.add('Error Deleting Post : '+ error);
             }
         });
     }
@@ -108,7 +107,7 @@ export class PostsDashboardComponent implements OnInit {
                 this.isLoading = false;
             },
             error: (error) => {
-                console.error('Error Getting Posts : ', error);
+                this.alertService.add('Error Getting Posts : '+ error);
             }
         });
     }
@@ -119,7 +118,7 @@ export class PostsDashboardComponent implements OnInit {
                 this.tags = response;
             },
             error: (error) =>{
-                console.log(error);
+                this.alertService.add(error);
             }
         });
     }

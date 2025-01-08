@@ -2,6 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TagService } from '../../services/tag.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
 	selector: 'app-card-post',
@@ -30,7 +31,8 @@ export class CardPostComponent implements OnInit {
 
     constructor(
         private sanitizer: DomSanitizer,
-        private tagService: TagService
+        private tagService: TagService,
+        private alertService: AlertService
     ) {
         this._coverImage = '';
     }
@@ -47,7 +49,7 @@ export class CardPostComponent implements OnInit {
                     this.tagNames.push(response.name);
                 },
                 error: (error) => {
-                    console.log(error);
+                    this.alertService.add(error);
                 }
             })
         })

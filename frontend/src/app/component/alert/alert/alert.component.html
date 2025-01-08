@@ -1,0 +1,4 @@
+<div class="alert alert-warning alert-dismissible fade show fixed-alert" role="error" *ngFor="let msg of alertService.messages">
+    {{msg}}
+  <button type="button" class="btn-close"  (click)="remove(msg)" aria-label="Close"></button>
+</div>

@@ -3,6 +3,7 @@ import { CardPostComponent } from "../../component/card-post/card-post.component
 import { PostService } from '../../services/post.service';
 import { PostResponse } from '../../models/post-response';
 import { NgFor } from '@angular/common';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
 	selector: 'app-home',
@@ -16,17 +17,17 @@ export class HomeComponent implements OnInit {
 	posts: PostResponse[] = [];
 
 	constructor(
-        private postService: PostService
+        private postService: PostService,
+        private alertService: AlertService
     ) {}
 
     loadPosts(){
         this.postService.getAllPosts().subscribe({
             next: (response) => {
                 this.posts = response;
-                console.log(response);
             },
             error: (error) => {
-                console.log(error);
+                this.alertService.add(error);
             }
         });
     }
