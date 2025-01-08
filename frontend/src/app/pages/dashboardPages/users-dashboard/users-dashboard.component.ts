@@ -7,6 +7,7 @@ import { UserFormComponent } from '../../../component/modal/user-form/user-form.
 import { UserService } from '../../../services/user.service';
 import { UserRequest } from '../../../models/user-request';
 import { RegisterRequest } from '../../../models/register-request';
+import { create } from 'domain';
 
 @Component({
   selector: 'app-users-dashboard',
@@ -57,7 +58,17 @@ export class UsersDashboardComponent implements OnInit{
                 this.modalRef = this.modalService.open(UserFormComponent, {
                     modalClass: 'modal-lg',
                     data: {
-                        user: this.userGetted
+                        create: false,
+                        user: {
+                            username: this.userGetted.username,
+                            email: this.userGetted.email,
+                            password: '',
+                            firstName: this.userGetted.firstName,
+                            lastName: this.userGetted.lastName,
+                            roles: this.userGetted.roles,
+                            profilePicture: this.userGetted.profilePicture,
+                            bio: this.userGetted.bio
+                        }
                     }
                 });
                 this.modalRef.onClose.subscribe((editedUser: UserRequest) => {

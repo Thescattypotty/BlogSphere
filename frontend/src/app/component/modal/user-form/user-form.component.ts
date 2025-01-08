@@ -34,7 +34,7 @@ export class UserFormComponent implements OnInit{
     }
 
     isUserEmpty(user: Partial<RegisterRequest> | null): boolean {
-        return user === null || user.username === '' || user.email === '' || user.password === '' || user.firstName === '' || user.lastName === '' || user.profilePicture === '' || user.bio === '';
+        return user === null || user.username === '' || user.email === '' || user.firstName === '' || user.lastName === '' || user.profilePicture === '' || user.bio === '' || (this.create && user.password === '');
     }
 
     ngOnInit(): void {
