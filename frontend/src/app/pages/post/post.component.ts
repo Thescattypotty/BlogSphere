@@ -18,11 +18,12 @@ export class PostComponent implements OnInit {
     id: String = '';
     post: PostResponse | null = null;
     safeHtml: SafeHtml | null = null;
+    randomPost: PostResponse[] = [];
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private postService: PostService,
-        private tagService: TagService,
         private sanitizer: DomSanitizer
     ) { }
 
@@ -32,6 +33,7 @@ export class PostComponent implements OnInit {
             if(idParam){
                 this.id = idParam;
                 this.getPost();
+                this.get2RandomPosts();
             }else{
                 this.router.navigate(['/']);
             }
@@ -48,6 +50,16 @@ export class PostComponent implements OnInit {
                 console.log(error);
             }
         });
+    }
+    get2RandomPosts(){
+        this.postService.getAllPosts().subscribe({
+            next: (response) => {
+                this.randomPost = response.sort(() => Math.random() - 0.5).slice(0, 2);
+            },
+            error: (error) => {
+                console.error('Error Getting Random Posts : ', error);
+            }
+        })
     }
 
 }

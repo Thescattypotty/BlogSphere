@@ -16,8 +16,8 @@
 
 
       <nav class="blog-pagination" aria-label="Pagination">
-        <a class="btn btn-outline-primary rounded-pill" routerLink="/">Previous</a>
-        <a class="btn btn-outline-secondary rounded-pill" routerLink="/">Next</a>
+        <a class="btn btn-outline-primary rounded-pill" [routerLink]="['/', randomPost.at(0)?.id]">Previous</a>
+        <a class="btn btn-outline-secondary rounded-pill" [routerLink]="['/', randomPost.at(1)?.id]">Next</a>
       </nav>
 
     </div>
