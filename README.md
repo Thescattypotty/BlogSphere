@@ -1,9 +1,69 @@
-# Blog Platform Specification
+# Blog Sphere
 
-## Overview
-The Blog Platform is a web application backend that allows users to create, publish, and manage their own blog posts. It provides a user-friendly interface for both writers and readers, along with features for commenting, searching, and categorizing blog posts.
+## Description
 
-## Technology Stack
-- **Backend:** Spring Boot for RESTful API development.
-- **Database:** H2 Database
-- **Authentication:** JWT (JSON Web Tokens) for user authentication and authorization.
+Blog Sphere est une plateforme innovante pour les blogueurs, visant à simplifier et rendre le blogging plus accessible pour les auteurs et les lecteurs .
+
+## Structure du Projet
+
+Le projet est divisé en deux parties principales :
+
+- **Backend** : [`backend`](backend) - une application Spring Boot utilisant Maven.
+- **Frontend** : [`frontend`](frontend) - une application Angular.
+
+## Prérequis
+
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- [Maven](https://maven.apache.org/)
+- [Node.js](https://nodejs.org/)
+- [Angular CLI](https://angular.io/cli)
+
+## Installation
+
+### Backend
+
+1. Naviguez dans le dossier backend :
+
+    ```sh
+    cd backend
+    ```
+
+2. Construisez le projet avec Maven :
+
+    ```sh
+    mvn clean install
+    ```
+
+### Frontend
+
+1. Naviguez dans le dossier frontend :
+
+    ```sh
+    cd frontend
+    ```
+
+2. Installez les dépendances :
+
+    ```sh
+    npm install
+    ```
+
+## Utilisation
+
+### Démarrer le Backend
+
+1. Dans le dossier backend, lancez l'application :
+
+    ```sh
+    mvn spring-boot:run
+    ```
+
+### Démarrer le Frontend
+
+1. Dans le dossier frontend, démarrez le serveur de développement :
+
+    ```sh
+    ng serve
+    ```
+
+2. Accédez à l'application via [http://localhost:4200](http://localhost:4200).
