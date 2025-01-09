@@ -22,6 +22,7 @@ export class TagsDashboardComponent implements OnInit{
     tags: TagResponse[] = [];
     isLoading: boolean = true;
     tagGetted: TagResponse | null = null;
+    username: String | null = null;
     
     modalRef: MdbModalRef<TagCreateComponent> | null = null;
 
@@ -96,17 +97,23 @@ export class TagsDashboardComponent implements OnInit{
     }
 
     reloadTags(): void{
-        this.tagService.getAllTags().pipe(
-            catchError(error => {
-                this.alertService.add('Error fetching tags:'+ error);
-                return of([]);
-            })
-        ).subscribe({
-            next: (response) => {
-                this.tags = response;
-                this.isLoading = false;
-            }
-        });
+        this.username = localStorage.getItem('username');
+        if(this.username !== null){
+            this.tagService.getTagsByUser(this.username).pipe(
+                catchError(error => {
+                    this.alertService.add('Error fetching tags:' + error);
+                    return of([]);
+                })
+            ).subscribe({
+                next: (response) => {
+                    this.tags = response;
+                    this.isLoading = false;
+                }
+            });
+        }else{
+            this.router.navigate(['/login']);
+        }
+        
     }
 
     ngOnInit(): void {

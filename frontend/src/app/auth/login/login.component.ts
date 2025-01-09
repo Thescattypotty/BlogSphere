@@ -29,6 +29,7 @@ export class LoginComponent {
 				
 				if (this.jwtResponse.accessToken && this.jwtResponse.refreshToken) {
 					this.authService.setToken(this.jwtResponse.accessToken.valueOf(), this.jwtResponse.refreshToken.valueOf());
+                    localStorage.setItem('username', this.loginRequest.username.toString());
 				} else {
 					console.error('accessToken or refreshToken is missing!');
 				}

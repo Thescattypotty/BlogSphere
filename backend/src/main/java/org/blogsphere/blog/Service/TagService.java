@@ -78,7 +78,13 @@ public class TagService implements ITagService{
                 return t.getName();
             })
             .collect(Collectors.toList());
+    }
 
+    public List<TagResponse> getTagsByUser(String username) {
+        return tagRepository.findByCreatedBy(username)
+            .stream()
+            .map(tagMapper::toTagResponse)
+            .collect(Collectors.toList());
     }
     
 }

@@ -9,6 +9,7 @@ import { PostRequest } from '../../../models/post-request';
 import { TagService } from '../../../services/tag.service';
 import { TagResponse } from '../../../models/tag-response';
 import { AlertService } from '../../../services/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-posts-dashboard',
@@ -23,6 +24,7 @@ export class PostsDashboardComponent implements OnInit {
     isLoading: boolean = true;
     postGetted: PostResponse | null = null;
     tags: TagResponse[] = [];
+    username: String | null = null;
 
     modalRef: MdbModalRef<PostFormComponent> | null = null;
 
@@ -30,7 +32,8 @@ export class PostsDashboardComponent implements OnInit {
         private postService: PostService,
         private modalService: MdbModalService,
         private tagService: TagService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private router: Router
     ) {
     }
 
@@ -101,15 +104,20 @@ export class PostsDashboardComponent implements OnInit {
         });
     }
     reloadPosts() {
-        this.postService.getAllPosts().subscribe({
-            next: (response) => {
-                this.posts = response;
-                this.isLoading = false;
-            },
-            error: (error) => {
-                this.alertService.add('Error Getting Posts : '+ error);
-            }
-        });
+        if(this.username === null){
+            this.router.navigate(['/login']);
+            return;
+        }else{
+            this.postService.getPostsByUser(this.username).subscribe({
+                next: (response) => {
+                    this.posts = response;
+                    this.isLoading = false;
+                },
+                error: (error) => {
+                    this.alertService.add('Error Getting Posts : ' + error);
+                }
+            });
+        }
     }
 
     reloadTags(){
@@ -144,6 +152,7 @@ export class PostsDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.username = localStorage.getItem('username') || null;
         this.reloadPosts();
         this.reloadTags();
     }

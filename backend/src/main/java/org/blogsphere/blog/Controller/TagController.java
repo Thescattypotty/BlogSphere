@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/tags")
 @RequiredArgsConstructor
 public class TagController {
+    
     private final TagService tagService;
 
     @PostMapping
@@ -52,6 +53,11 @@ public class TagController {
     @GetMapping
     public ResponseEntity<List<TagResponse>> getAllTags(){
         return ResponseEntity.ok(tagService.getAllTags());
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<List<TagResponse>> getTagsByUser(@PathVariable("username") String username){
+        return ResponseEntity.ok(tagService.getTagsByUser(username));
     }
 
     @PostMapping("/names")

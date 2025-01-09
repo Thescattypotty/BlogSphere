@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
 public class PostController {
+    
     private final PostService postService;
 
     @PostMapping
